@@ -1,21 +1,24 @@
 import { ExternalLink, Globe } from 'lucide-react'
+import { useLang } from '../i18n/LanguageContext'
 
 interface Props {
   designRefUrl: string
   onChange: (url: string) => void
 }
 
-const refSites = [
-  { name: 'Behance', url: 'https://www.behance.net/', desc: 'Adobe 디자인 포트폴리오 플랫폼' },
-  { name: 'Dribbble', url: 'https://dribbble.com/', desc: '디자이너 커뮤니티 & 영감' },
-  { name: '나노바나나', url: 'https://www.nanobanana.com/', desc: '프레젠테이션 디자인 전문' },
-]
-
 export default function DesignRefPanel({ designRefUrl, onChange }: Props) {
+  const { t } = useLang()
+
+  const refSites = [
+    { name: 'Behance', url: 'https://www.behance.net/', desc: t.designRef.behanceDesc },
+    { name: 'Dribbble', url: 'https://dribbble.com/', desc: t.designRef.dribbbleDesc },
+    { name: 'Nanobanana', url: 'https://www.nanobanana.com/', desc: t.designRef.nanobananaDesc },
+  ]
+
   return (
     <div className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
       <div className="p-3 border-b border-[#334155]">
-        <h3 className="text-xs font-semibold text-[#94a3b8]">디자인 참고 사이트</h3>
+        <h3 className="text-xs font-semibold text-[#94a3b8]">{t.designRef.title}</h3>
       </div>
       <div className="p-3 space-y-2">
         {refSites.map(site => (
@@ -39,7 +42,7 @@ export default function DesignRefPanel({ designRefUrl, onChange }: Props) {
 
         <div className="mt-3">
           <label className="text-xs font-medium text-[#94a3b8] mb-1 block">
-            디자인 참고 URL (Behance/Dribbble에서 선택 후 붙여넣기)
+            {t.designRef.urlLabel}
           </label>
           <input
             value={designRefUrl}

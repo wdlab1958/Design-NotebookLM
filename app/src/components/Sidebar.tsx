@@ -1,17 +1,19 @@
 import { LayoutDashboard, Palette, FileText, Wand2, BookOpen } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-
-const navItems = [
-  { icon: LayoutDashboard, label: '홈', path: '/' },
-  { icon: Palette, label: '디자인', path: '/' },
-  { icon: FileText, label: '프롬프트', path: '/customize' },
-  { icon: Wand2, label: '생성', path: '/customize' },
-  { icon: BookOpen, label: 'NotebookLM', path: '/customize' },
-]
+import { useLang } from '../i18n/LanguageContext'
 
 export default function Sidebar() {
   const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useLang()
+
+  const navItems = [
+    { icon: LayoutDashboard, label: t.nav.home, path: '/' },
+    { icon: Palette, label: t.nav.design, path: '/' },
+    { icon: FileText, label: t.nav.prompt, path: '/customize' },
+    { icon: Wand2, label: t.nav.generate, path: '/customize' },
+    { icon: BookOpen, label: t.nav.notebookLM, path: '/customize' },
+  ]
 
   return (
     <aside className="w-[72px] bg-[#1e293b] border-r border-[#334155] flex flex-col items-center py-4 gap-2 shrink-0">

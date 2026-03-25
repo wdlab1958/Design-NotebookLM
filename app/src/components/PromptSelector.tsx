@@ -1,5 +1,6 @@
 import { FileText } from 'lucide-react'
 import type { Category } from '../data/categories'
+import { useLang } from '../i18n/LanguageContext'
 
 interface Props {
   category: Category | null
@@ -8,24 +9,29 @@ interface Props {
 }
 
 export default function PromptSelector({ category, selectedPrompt, onSelect }: Props) {
+  const { lang, t } = useLang()
+
   if (!category) {
     return (
       <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-6 flex flex-col items-center justify-center text-center min-h-[200px]">
         <FileText className="w-8 h-8 text-[#334155] mb-2" />
-        <p className="text-xs text-[#64748b]">왼쪽에서 카테고리를 선택하면<br />10가지 프롬프트 샘플이 표시됩니다</p>
+        <p className="text-xs text-[#64748b]">{t.promptSelector.emptyTitle}<br />{t.promptSelector.emptySubtitle}</p>
       </div>
     )
   }
+
+  const catName = lang === 'en' ? category.nameEn : category.name
+  const prompts = lang === 'en' ? category.promptsEn : category.prompts
 
   return (
     <div className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
       <div className="p-3 border-b border-[#334155]">
         <h3 className="text-xs font-semibold text-[#94a3b8]">
-          {category.icon} {category.name} — 프롬프트 샘플 (10개)
+          {category.icon} {catName} {t.promptSelector.sampleSuffix}
         </h3>
       </div>
       <div className="p-2 space-y-1 max-h-[400px] overflow-y-auto">
-        {category.prompts.map((p, i) => (
+        {prompts.map((p, i) => (
           <button
             key={i}
             onClick={() => onSelect(p)}

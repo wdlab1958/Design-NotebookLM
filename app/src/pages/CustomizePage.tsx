@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowLeft, Copy, Check, ChevronDown, ChevronUp, RefreshCw } from 'lucide-react'
+import { useLang } from '../i18n/LanguageContext'
 
 interface Config {
   categoryName?: string
+  categoryNameEn?: string
   promptText: string
   designStyleName?: string
   designStyleNameEn?: string
@@ -126,6 +128,7 @@ ${executionBlock}`
 
 export default function CustomizePage() {
   const navigate = useNavigate()
+  const { lang, t } = useLang()
   const [config, setConfig] = useState<Config | null>(null)
   const [copiedStep, setCopiedStep] = useState<number | null>(null)
   const [expandedSteps, setExpandedSteps] = useState<Set<number>>(new Set([1, 2, 3]))
@@ -155,22 +158,25 @@ export default function CustomizePage() {
   if (!config) {
     return (
       <div className="flex flex-col items-center justify-center h-full text-center">
-        <p className="text-sm text-[#64748b] mb-4">설정된 구성이 없습니다. 먼저 메인 페이지에서 설정해주세요.</p>
+        <p className="text-sm text-[#64748b] mb-4">{t.customize.noConfig}</p>
         <button onClick={() => navigate('/')} className="px-4 py-2 bg-[#3b82f6] rounded-lg text-xs hover:bg-[#2563eb]">
-          메인으로 돌아가기
+          {t.customize.goBack}
         </button>
       </div>
     )
   }
+
+  const getCatName = () => lang === 'en' ? (config.categoryNameEn || config.categoryName) : config.categoryName
+  const getStyleName = () => lang === 'en' ? (config.designStyleNameEn || config.designStyleName) : config.designStyleName
 
   const step1 = generateStep1(config)
   const step2 = generateStep2(config)
   const step3 = generateStep3(config)
 
   const stepData = [
-    { num: 1, title: '1단계: 슬라이드 영문 디자인 추출 프롬프트', content: step1, color: '#3b82f6' },
-    { num: 2, title: '2단계: 마스터 대본 추출 프롬프트', content: step2, color: '#22c55e' },
-    { num: 3, title: '3단계: 슬라이드 렌더링 프롬프트', content: step3, color: '#f59e0b' },
+    { num: 1, title: t.customize.step1Title, content: step1, color: '#3b82f6' },
+    { num: 2, title: t.customize.step2Title, content: step2, color: '#22c55e' },
+    { num: 3, title: t.customize.step3Title, content: step3, color: '#f59e0b' },
   ]
 
   return (
@@ -182,9 +188,9 @@ export default function CustomizePage() {
             <ArrowLeft className="w-4 h-4 text-[#94a3b8]" />
           </button>
           <div>
-            <h2 className="text-sm font-semibold">슬라이드 맞춤설정 프롬프트</h2>
+            <h2 className="text-sm font-semibold">{t.customize.title}</h2>
             <p className="text-[10px] text-[#64748b]">
-              {config.categoryName} · {config.designStyleName} · {config.totalPages}페이지
+              {getCatName()} · {getStyleName()} · {config.totalPages}{t.customize.pagesSuffix}
             </p>
           </div>
         </div>
@@ -193,24 +199,24 @@ export default function CustomizePage() {
           className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#334155] hover:bg-[#475569] text-xs transition-colors"
         >
           <RefreshCw className="w-3 h-3" />
-          다시 설정
+          {t.customize.reconfigure}
         </button>
       </div>
 
       {/* Config Summary */}
       <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-4">
-        <h3 className="text-xs font-semibold text-[#94a3b8] mb-2">구성 요약</h3>
+        <h3 className="text-xs font-semibold text-[#94a3b8] mb-2">{t.customize.configSummary}</h3>
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-[#0f172a] rounded-lg p-2.5 border border-[#334155]">
-            <div className="text-[9px] text-[#64748b]">프롬프트</div>
+            <div className="text-[9px] text-[#64748b]">{t.customize.promptLabel}</div>
             <div className="text-[11px] font-medium mt-0.5 truncate">{config.promptText}</div>
           </div>
           <div className="bg-[#0f172a] rounded-lg p-2.5 border border-[#334155]">
-            <div className="text-[9px] text-[#64748b]">대상 청중</div>
+            <div className="text-[9px] text-[#64748b]">{t.customize.audienceLabel}</div>
             <div className="text-[11px] font-medium mt-0.5 truncate">{config.targetAudience}</div>
           </div>
           <div className="bg-[#0f172a] rounded-lg p-2.5 border border-[#334155]">
-            <div className="text-[9px] text-[#64748b]">발표 목적</div>
+            <div className="text-[9px] text-[#64748b]">{t.customize.objectiveLabel}</div>
             <div className="text-[11px] font-medium mt-0.5 truncate">{config.presentationObjective}</div>
           </div>
         </div>
@@ -218,12 +224,11 @@ export default function CustomizePage() {
 
       {/* Usage Guide */}
       <div className="bg-[#0f172a] rounded-xl border border-[#3b82f6]/30 p-4">
-        <h3 className="text-xs font-semibold text-[#3b82f6] mb-2">사용 방법</h3>
+        <h3 className="text-xs font-semibold text-[#3b82f6] mb-2">{t.customize.usageTitle}</h3>
         <ol className="text-[10px] text-[#94a3b8] space-y-1 list-decimal list-inside">
-          <li>소스파일(대본 문서)을 NotebookLM의 소스로 업로드합니다.</li>
-          <li>아래 1~3단계 프롬프트를 순서대로 채팅창에 붙여넣습니다.</li>
-          <li>[Global Design System]의 URL은 Behance/Dribbble에서 선택한 디자인의 URL을 사용합니다.</li>
-          <li>슬라이드 자료가 배치별로 순차 출력됩니다.</li>
+          {t.customize.usageSteps.map((step, i) => (
+            <li key={i}>{step}</li>
+          ))}
         </ol>
       </div>
 
@@ -251,7 +256,7 @@ export default function CustomizePage() {
                 }`}
               >
                 {copiedStep === step.num ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                {copiedStep === step.num ? '복사됨' : '복사'}
+                {copiedStep === step.num ? t.customize.copied : t.customize.copy}
               </button>
               {expandedSteps.has(step.num)
                 ? <ChevronUp className="w-4 h-4 text-[#64748b]" />
@@ -272,11 +277,11 @@ export default function CustomizePage() {
       {/* All-in-one copy */}
       <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-4 flex items-center justify-between">
         <div className="text-xs text-[#94a3b8]">
-          3개 단계 프롬프트를 한 번에 복사하여 NotebookLM에 붙여넣기
+          {t.customize.copyAllDesc}
         </div>
         <button
           onClick={() => handleCopy(
-            `=== 1단계 ===\n${step1}\n\n=== 2단계 ===\n${step2}\n\n=== 3단계 ===\n${step3}`,
+            `=== ${t.customize.stepPrefix} 1 ===\n${step1}\n\n=== ${t.customize.stepPrefix} 2 ===\n${step2}\n\n=== ${t.customize.stepPrefix} 3 ===\n${step3}`,
             99
           )}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
@@ -286,7 +291,7 @@ export default function CustomizePage() {
           }`}
         >
           {copiedStep === 99 ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-          {copiedStep === 99 ? '전체 복사 완료!' : '전체 복사'}
+          {copiedStep === 99 ? t.customize.copyAllDone : t.customize.copyAll}
         </button>
       </div>
     </div>

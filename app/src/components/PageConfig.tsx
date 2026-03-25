@@ -1,4 +1,5 @@
 import { Minus, Plus, Info } from 'lucide-react'
+import { useLang } from '../i18n/LanguageContext'
 
 interface Props {
   totalPages: number
@@ -6,6 +7,8 @@ interface Props {
 }
 
 export default function PageConfig({ totalPages, onChange }: Props) {
+  const { t } = useLang()
+
   const batches = []
   let remaining = totalPages
   let start = 1
@@ -19,11 +22,11 @@ export default function PageConfig({ totalPages, onChange }: Props) {
   return (
     <div className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
       <div className="p-3 border-b border-[#334155]">
-        <h3 className="text-xs font-semibold text-[#94a3b8]">슬라이드 페이지 설정</h3>
+        <h3 className="text-xs font-semibold text-[#94a3b8]">{t.pageConfig.title}</h3>
       </div>
       <div className="p-4 space-y-4">
         <div>
-          <label className="text-xs text-[#94a3b8] mb-2 block">총 생성 페이지 수</label>
+          <label className="text-xs text-[#94a3b8] mb-2 block">{t.pageConfig.totalPages}</label>
           <div className="flex items-center gap-3">
             <button
               onClick={() => onChange(Math.max(1, totalPages - 5))}
@@ -48,20 +51,20 @@ export default function PageConfig({ totalPages, onChange }: Props) {
             >
               <Plus className="w-3 h-3" />
             </button>
-            <span className="text-xs text-[#64748b]">페이지</span>
+            <span className="text-xs text-[#64748b]">{t.pageConfig.pages}</span>
           </div>
         </div>
 
         <div className="bg-[#0f172a] rounded-lg p-3 border border-[#334155]">
           <div className="flex items-center gap-1.5 mb-2">
             <Info className="w-3 h-3 text-[#3b82f6]" />
-            <span className="text-[10px] font-medium text-[#3b82f6]">분기 렌더링 계획 (최대 20장/배치)</span>
+            <span className="text-[10px] font-medium text-[#3b82f6]">{t.pageConfig.batchPlan}</span>
           </div>
           <div className="space-y-1">
             {batches.map((b, i) => (
               <div key={i} className="flex items-center justify-between text-[10px]">
                 <span className="text-[#94a3b8]">
-                  FUNCTION_{String(i + 1).padStart(2, '0')}: 슬라이드 {b.start} ~ {b.end}
+                  FUNCTION_{String(i + 1).padStart(2, '0')}: {t.pageConfig.slide} {b.start} ~ {b.end}
                 </span>
                 <span className={`px-1.5 py-0.5 rounded text-[9px] font-medium ${
                   i === 0 ? 'bg-[#22c55e]/20 text-[#22c55e]' : 'bg-[#f59e0b]/20 text-[#f59e0b]'
@@ -72,7 +75,7 @@ export default function PageConfig({ totalPages, onChange }: Props) {
             ))}
           </div>
           <div className="mt-2 pt-2 border-t border-[#334155] text-[10px] text-[#64748b]">
-            총 {batches.length}개 배치로 분기 실행 | 첫 배치 실행 후 순차 실행
+            {t.pageConfig.batchSummary(batches.length)}
           </div>
         </div>
       </div>

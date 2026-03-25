@@ -8,9 +8,11 @@ import DesignRefPanel from '../components/DesignRefPanel'
 import PageConfig from '../components/PageConfig'
 import { categories, type Category } from '../data/categories'
 import { designStyles } from '../data/designStyles'
+import { useLang } from '../i18n/LanguageContext'
 
 export default function MainPage() {
   const navigate = useNavigate()
+  const { lang, t } = useLang()
   const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null)
   const [selectedPrompt, setSelectedPrompt] = useState('')
   const [selectedStyleId, setSelectedStyleId] = useState<number | null>(null)
@@ -33,6 +35,7 @@ export default function MainPage() {
     const config = {
       categoryId: selectedCategoryId,
       categoryName: selectedCategory?.name,
+      categoryNameEn: selectedCategory?.nameEn,
       promptText: selectedPrompt,
       designStyleId: selectedStyleId,
       designStyleName: selectedStyle?.name,
@@ -47,21 +50,32 @@ export default function MainPage() {
   }
 
   const steps = [
-    { label: '카테고리', done: !!selectedCategoryId },
-    { label: '프롬프트', done: !!selectedPrompt },
-    { label: '디자인 구조', done: !!selectedStyleId },
-    { label: '대상/목적', done: !!(targetAudience && presentationObjective) },
-    { label: '페이지 설정', done: totalPages > 0 },
+    { label: t.main.steps.category, done: !!selectedCategoryId },
+    { label: t.main.steps.prompt, done: !!selectedPrompt },
+    { label: t.main.steps.designStructure, done: !!selectedStyleId },
+    { label: t.main.steps.targetObjective, done: !!(targetAudience && presentationObjective) },
+    { label: t.main.steps.pageSettings, done: totalPages > 0 },
   ]
+
+  const getCatDisplayName = () => {
+    if (!selectedCategory) return t.main.categoryNotSelected
+    const name = lang === 'en' ? selectedCategory.nameEn : selectedCategory.name
+    return `${selectedCategory.icon} ${name}`
+  }
+
+  const getStyleDisplayName = () => {
+    if (!selectedStyle) return ''
+    return lang === 'en' ? selectedStyle.nameEn : selectedStyle.name
+  }
 
   return (
     <div className="space-y-6 animate-slide-in">
       {/* Progress bar */}
       <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-sm font-semibold">슬라이드 프롬프트 구성</h2>
+          <h2 className="text-sm font-semibold">{t.main.configTitle}</h2>
           <span className="text-[10px] text-[#64748b]">
-            {steps.filter(s => s.done).length}/{steps.length} 단계 완료
+            {t.main.stepsCompleted(steps.filter(s => s.done).length, steps.length)}
           </span>
         </div>
         <div className="flex items-center gap-2">
@@ -115,24 +129,24 @@ export default function MainPage() {
       <div className="grid grid-cols-2 gap-4">
         <div className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
           <div className="p-3 border-b border-[#334155]">
-            <h3 className="text-xs font-semibold text-[#94a3b8]">발표 설정</h3>
+            <h3 className="text-xs font-semibold text-[#94a3b8]">{t.main.presentationSettings}</h3>
           </div>
           <div className="p-4 space-y-3">
             <div>
-              <label className="text-xs font-medium text-[#94a3b8] mb-1 block">대상 청중 (Target Audience)</label>
+              <label className="text-xs font-medium text-[#94a3b8] mb-1 block">{t.main.targetAudience}</label>
               <input
                 value={targetAudience}
                 onChange={e => setTargetAudience(e.target.value)}
-                placeholder="예: 정부과제 심사 평가위원, 투자자, 학생 등"
+                placeholder={t.main.targetAudiencePlaceholder}
                 className="w-full bg-[#0f172a] border border-[#334155] rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-[#3b82f6]"
               />
             </div>
             <div>
-              <label className="text-xs font-medium text-[#94a3b8] mb-1 block">발표 목적 (Presentation Objective)</label>
+              <label className="text-xs font-medium text-[#94a3b8] mb-1 block">{t.main.presentationObjective}</label>
               <input
                 value={presentationObjective}
                 onChange={e => setPresentationObjective(e.target.value)}
-                placeholder="예: AI 기반 딥페이크 탐지 플랫폼 개발 과제 발표"
+                placeholder={t.main.presentationObjectivePlaceholder}
                 className="w-full bg-[#0f172a] border border-[#334155] rounded-lg px-3 py-2 text-xs focus:outline-none focus:border-[#3b82f6]"
               />
             </div>
@@ -146,8 +160,8 @@ export default function MainPage() {
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <div className="text-xs text-[#94a3b8]">
-              선택 요약: {selectedCategory ? `${selectedCategory.icon} ${selectedCategory.name}` : '카테고리 미선택'}
-              {selectedStyle ? ` · ${selectedStyle.name}` : ''}
+              {t.main.selectionSummary} {getCatDisplayName()}
+              {selectedStyle ? ` · ${getStyleDisplayName()}` : ''}
               {` · ${totalPages}p`}
             </div>
             {selectedPrompt && (
@@ -163,7 +177,7 @@ export default function MainPage() {
                 : 'bg-[#334155] text-[#64748b] cursor-not-allowed'
             }`}
           >
-            NotebookLM 열기
+            {t.main.openNotebook}
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>
