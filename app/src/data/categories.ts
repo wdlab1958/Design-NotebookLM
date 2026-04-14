@@ -471,9 +471,193 @@ export const categories: Category[] = [
     'Next-generation wireless communication technology analysis',
     'Open RAN technology introduction presentation',
   ]},
+  { id: 21, name: 'AX(AI Transformation)', nameEn: 'AX (AI Transformation)', icon: '🔀', prompts: [
+    'AX 기반 기업 디지털 전환 전략 발표',
+    'AI 트랜스포메이션 로드맵 프레젠테이션',
+    'AX 성공 사례 분석 및 벤치마킹 보고서',
+    'AX 추진을 위한 조직 역량 진단 발표',
+    'AI 기반 업무 프로세스 혁신 제안서',
+    'AX 도입에 따른 ROI 분석 보고서',
+    'AX 거버넌스 체계 수립 전략 발표',
+    'AI 기반 고객 경험 혁신 프레젠테이션',
+    'AX 인재 양성 및 리스킬링 전략 발표',
+    'AX 단계별 실행 계획서 프레젠테이션',
+  ], promptsEn: [
+    'AX-based enterprise digital transformation strategy presentation',
+    'AI transformation roadmap presentation',
+    'AX success case analysis and benchmarking report',
+    'Organizational capability assessment for AX adoption',
+    'AI-based business process innovation proposal',
+    'AX adoption ROI analysis report',
+    'AX governance framework establishment strategy presentation',
+    'AI-based customer experience innovation presentation',
+    'AX talent development and reskilling strategy presentation',
+    'AX phased execution plan presentation',
+  ]},
+  { id: 22, name: 'AIMES', nameEn: 'AIMES', icon: '🧠', prompts: [
+    'AIMES 플랫폼 아키텍처 소개 발표',
+    'AI 모델 평가 시스템(AIMES) 구축 제안서',
+    'AIMES 기반 모델 성능 벤치마크 보고서',
+    'AIMES 활용 AI 품질 관리 전략 발표',
+    'AIMES 도입을 통한 AI 거버넌스 강화 발표',
+    'AIMES 기반 데이터 파이프라인 설계 발표',
+    'AIMES 모니터링 대시보드 구축 제안서',
+    'AIMES 활용 모델 드리프트 탐지 전략 발표',
+    'AIMES 통합 MLOps 파이프라인 설계 발표',
+    'AIMES 기반 AI 윤리 평가 프레임워크 발표',
+  ], promptsEn: [
+    'AIMES platform architecture introduction presentation',
+    'AI Model Evaluation System (AIMES) construction proposal',
+    'AIMES-based model performance benchmark report',
+    'AIMES-driven AI quality management strategy presentation',
+    'AI governance enhancement through AIMES adoption presentation',
+    'AIMES-based data pipeline design presentation',
+    'AIMES monitoring dashboard construction proposal',
+    'AIMES-based model drift detection strategy presentation',
+    'AIMES integrated MLOps pipeline design presentation',
+    'AIMES-based AI ethics evaluation framework presentation',
+  ]},
+  { id: 23, name: 'Agent Harness Engineering', nameEn: 'Agent Harness Engineering', icon: '⚙️', prompts: [
+    'AI 에이전트 하네스 아키텍처 설계 발표',
+    '에이전트 오케스트레이션 프레임워크 제안서',
+    '멀티 에이전트 시스템 설계 프레젠테이션',
+    '에이전트 하네스 테스트 자동화 전략 발표',
+    'AI 에이전트 안전성 검증 체계 구축 발표',
+    '에이전트 하네스 성능 최적화 보고서',
+    'LLM 에이전트 툴 통합 가이드 프레젠테이션',
+    '에이전트 하네스 모니터링 및 로깅 전략 발표',
+    'AI 에이전트 배포 파이프라인 설계 제안서',
+    '에이전트 하네스 보안 및 권한 관리 발표',
+  ], promptsEn: [
+    'AI agent harness architecture design presentation',
+    'Agent orchestration framework proposal',
+    'Multi-agent system design presentation',
+    'Agent harness test automation strategy presentation',
+    'AI agent safety verification system construction presentation',
+    'Agent harness performance optimization report',
+    'LLM agent tool integration guide presentation',
+    'Agent harness monitoring and logging strategy presentation',
+    'AI agent deployment pipeline design proposal',
+    'Agent harness security and access control presentation',
+  ]},
+  { id: 24, name: 'Hermes Agent', nameEn: 'Hermes Agent', icon: '🪽', prompts: [
+    'Hermes Agent 플랫폼 소개 프레젠테이션',
+    'Hermes 기반 자율 에이전트 구축 전략 발표',
+    'Hermes Agent 멀티모달 처리 아키텍처 발표',
+    'Hermes Agent 대화형 인터페이스 설계 제안서',
+    'Hermes Agent 기반 업무 자동화 사례 발표',
+    'Hermes Agent API 통합 가이드 프레젠테이션',
+    'Hermes Agent 성능 튜닝 및 최적화 보고서',
+    'Hermes Agent 보안 정책 수립 전략 발표',
+    'Hermes Agent 기반 고객 서비스 혁신 제안서',
+    'Hermes Agent 확장성 설계 및 배포 전략 발표',
+  ], promptsEn: [
+    'Hermes Agent platform introduction presentation',
+    'Hermes-based autonomous agent construction strategy presentation',
+    'Hermes Agent multimodal processing architecture presentation',
+    'Hermes Agent conversational interface design proposal',
+    'Hermes Agent-based workflow automation case presentation',
+    'Hermes Agent API integration guide presentation',
+    'Hermes Agent performance tuning and optimization report',
+    'Hermes Agent security policy establishment strategy presentation',
+    'Hermes Agent-based customer service innovation proposal',
+    'Hermes Agent scalability design and deployment strategy presentation',
+  ]},
+  { id: 25, name: '보안 컨설팅', nameEn: 'Security Consulting', icon: '🛡️', prompts: [
+    '기업 정보보안 컨설팅 제안서 프레젠테이션',
+    '보안 취약점 진단 컨설팅 결과 보고서',
+    '보안 아키텍처 설계 컨설팅 발표자료',
+    '클라우드 보안 컨설팅 전략 프레젠테이션',
+    '개인정보보호 컨설팅 결과 보고서',
+    '보안 컴플라이언스 컨설팅 제안서',
+    '제로트러스트 전환 컨설팅 로드맵 발표',
+    '침해사고 대응 컨설팅 체계 수립 발표',
+    'OT/ICS 보안 컨설팅 제안서 프레젠테이션',
+    '보안 성숙도 평가 컨설팅 보고서 발표',
+  ], promptsEn: [
+    'Enterprise information security consulting proposal presentation',
+    'Security vulnerability assessment consulting results report',
+    'Security architecture design consulting presentation',
+    'Cloud security consulting strategy presentation',
+    'Privacy protection consulting results report',
+    'Security compliance consulting proposal',
+    'Zero-trust transition consulting roadmap presentation',
+    'Incident response consulting framework establishment presentation',
+    'OT/ICS security consulting proposal presentation',
+    'Security maturity assessment consulting report presentation',
+  ]},
+  { id: 26, name: '보안 관제', nameEn: 'Security Operations', icon: '📡', prompts: [
+    'SOC 보안 관제 센터 구축 제안서',
+    'SIEM 기반 통합 보안 관제 전략 발표',
+    '24/7 보안 관제 운영 체계 프레젠테이션',
+    '위협 인텔리전스 기반 관제 고도화 발표',
+    '보안 관제 자동화(SOAR) 도입 제안서',
+    '클라우드 보안 관제 아키텍처 발표자료',
+    '보안 관제 KPI 및 성과 분석 보고서',
+    'NDR/EDR 기반 관제 체계 구축 발표',
+    '보안 관제 인력 양성 및 교육 전략 발표',
+    '차세대 보안 관제 플랫폼 도입 제안서',
+  ], promptsEn: [
+    'SOC security operations center construction proposal',
+    'SIEM-based integrated security operations strategy presentation',
+    '24/7 security operations management system presentation',
+    'Threat intelligence-based operations enhancement presentation',
+    'Security operations automation (SOAR) adoption proposal',
+    'Cloud security operations architecture presentation',
+    'Security operations KPI and performance analysis report',
+    'NDR/EDR-based operations system construction presentation',
+    'Security operations workforce development and training strategy presentation',
+    'Next-generation security operations platform adoption proposal',
+  ]},
+  { id: 27, name: '아두이노 응용', nameEn: 'Arduino Applications', icon: '🔌', prompts: [
+    '아두이노 기반 IoT 프로젝트 제안서',
+    '아두이노 센서 활용 환경 모니터링 시스템 발표',
+    '아두이노 기반 스마트 홈 자동화 프레젠테이션',
+    '아두이노 로봇 제어 프로젝트 발표자료',
+    '아두이노 기반 웨어러블 디바이스 개발 발표',
+    '아두이노 활용 STEM 교육 프로그램 제안서',
+    '아두이노 기반 산업용 자동화 시스템 발표',
+    '아두이노 무선통신 모듈 활용 프로젝트 발표',
+    '아두이노 기반 데이터 수집 시스템 설계 발표',
+    '아두이노 프로토타이핑 워크숍 교육자료',
+  ], promptsEn: [
+    'Arduino-based IoT project proposal',
+    'Arduino sensor-based environmental monitoring system presentation',
+    'Arduino-based smart home automation presentation',
+    'Arduino robot control project presentation',
+    'Arduino-based wearable device development presentation',
+    'Arduino-based STEM education program proposal',
+    'Arduino-based industrial automation system presentation',
+    'Arduino wireless communication module project presentation',
+    'Arduino-based data acquisition system design presentation',
+    'Arduino prototyping workshop training materials',
+  ]},
+  { id: 28, name: '라즈베리파이 응용', nameEn: 'Raspberry Pi Applications', icon: '🍓', prompts: [
+    '라즈베리파이 기반 엣지 컴퓨팅 시스템 발표',
+    '라즈베리파이 활용 AI 추론 서버 구축 제안서',
+    '라즈베리파이 기반 미디어 서버 프로젝트 발표',
+    '라즈베리파이 클러스터 컴퓨팅 아키텍처 발표',
+    '라즈베리파이 기반 스마트 팜 시스템 제안서',
+    '라즈베리파이 활용 네트워크 모니터링 시스템 발표',
+    '라즈베리파이 기반 디지털 사이니지 제안서',
+    '라즈베리파이 활용 보안 카메라 시스템 구축 발표',
+    '라즈베리파이 기반 교육용 서버 구축 프레젠테이션',
+    '라즈베리파이 IoT 게이트웨이 설계 발표자료',
+  ], promptsEn: [
+    'Raspberry Pi-based edge computing system presentation',
+    'Raspberry Pi AI inference server construction proposal',
+    'Raspberry Pi-based media server project presentation',
+    'Raspberry Pi cluster computing architecture presentation',
+    'Raspberry Pi-based smart farm system proposal',
+    'Raspberry Pi network monitoring system presentation',
+    'Raspberry Pi-based digital signage proposal',
+    'Raspberry Pi security camera system construction presentation',
+    'Raspberry Pi-based educational server construction presentation',
+    'Raspberry Pi IoT gateway design presentation',
+  ]},
 
-  // 교육 & 학술 (21-30)
-  { id: 21, name: '대학 강의', nameEn: 'University Lectures', icon: '🎓', prompts: [
+  // 교육 & 학술 (29-38)
+  { id: 29, name: '대학 강의', nameEn: 'University Lectures', icon: '🎓', prompts: [
     '프로그래밍 기초 강의 슬라이드',
     '통계학 개론 수업자료',
     '경영학 원론 프레젠테이션',
@@ -496,7 +680,7 @@ export const categories: Category[] = [
     'International trade theory lecture presentation',
     'Introduction to psychology course materials',
   ]},
-  { id: 22, name: '학술 발표', nameEn: 'Academic Presentations', icon: '📝', prompts: [
+  { id: 30, name: '학술 발표', nameEn: 'Academic Presentations', icon: '📝', prompts: [
     '학회 논문 발표 프레젠테이션',
     '석사 학위논문 심사 발표자료',
     '박사 학위논문 방어 발표',
@@ -519,7 +703,7 @@ export const categories: Category[] = [
     'Academic symposium keynote presentation',
     'Research methodology workshop slides',
   ]},
-  { id: 23, name: '초중고 교육', nameEn: 'K-12 Education', icon: '📚', prompts: [
+  { id: 31, name: '초중고 교육', nameEn: 'K-12 Education', icon: '📚', prompts: [
     '초등학생 과학 실험 수업자료',
     '중학교 역사 수업 프레젠테이션',
     '고등학교 수학 개념 강의 슬라이드',
@@ -542,7 +726,7 @@ export const categories: Category[] = [
     'Music theory lesson materials',
     'Physical education theory class presentation',
   ]},
-  { id: 24, name: '온라인 강좌', nameEn: 'Online Courses', icon: '🖥️', prompts: [
+  { id: 32, name: '온라인 강좌', nameEn: 'Online Courses', icon: '🖥️', prompts: [
     'MOOC 강좌 소개 프레젠테이션',
     '온라인 코딩 부트캠프 커리큘럼',
     '유데미 강좌 프로모 슬라이드',
@@ -565,7 +749,7 @@ export const categories: Category[] = [
     'Data analysis hands-on course materials',
     'AI utilization education presentation',
   ]},
-  { id: 25, name: '워크숍/세미나', nameEn: 'Workshops & Seminars', icon: '🏫', prompts: [
+  { id: 33, name: '워크숍/세미나', nameEn: 'Workshops & Seminars', icon: '🏫', prompts: [
     '리더십 워크숍 프레젠테이션',
     '팀빌딩 워크숍 진행 자료',
     '창의력 개발 워크숍 슬라이드',
@@ -588,7 +772,7 @@ export const categories: Category[] = [
     'Business Model Canvas workshop',
     'Mindfulness corporate seminar',
   ]},
-  { id: 26, name: '연구 보고서', nameEn: 'Research Reports', icon: '🔬', prompts: [
+  { id: 34, name: '연구 보고서', nameEn: 'Research Reports', icon: '🔬', prompts: [
     '임상시험 결과 보고서 발표',
     '시장조사 리서치 보고서',
     '기술 동향 분석 연구 보고서',
@@ -611,7 +795,7 @@ export const categories: Category[] = [
     'Advanced materials research results report',
     'Energy efficiency research report',
   ]},
-  { id: 27, name: '학생 프로젝트', nameEn: 'Student Projects', icon: '👨‍🎓', prompts: [
+  { id: 35, name: '학생 프로젝트', nameEn: 'Student Projects', icon: '👨‍🎓', prompts: [
     '캡스톤 디자인 발표 프레젠테이션',
     '팀 프로젝트 최종 발표자료',
     '해커톤 프로젝트 발표 슬라이드',
@@ -634,7 +818,7 @@ export const categories: Category[] = [
     'Department academic festival presentation',
     'Graduation project presentation',
   ]},
-  { id: 28, name: '교육 행정', nameEn: 'Education Administration', icon: '🏛️', prompts: [
+  { id: 36, name: '교육 행정', nameEn: 'Education Administration', icon: '🏛️', prompts: [
     '학교 운영 계획 발표 프레젠테이션',
     '교육과정 개편 안내 자료',
     '입학설명회 프레젠테이션',
@@ -657,7 +841,7 @@ export const categories: Category[] = [
     'School facility improvement plan',
     'Education budget report presentation',
   ]},
-  { id: 29, name: '자격증/시험', nameEn: 'Certifications & Exams', icon: '📜', prompts: [
+  { id: 37, name: '자격증/시험', nameEn: 'Certifications & Exams', icon: '📜', prompts: [
     'PMP 자격증 핵심 요약 슬라이드',
     'AWS 자격증 시험 대비 자료',
     '정보처리기사 핵심 정리 자료',
@@ -680,7 +864,7 @@ export const categories: Category[] = [
     'Computer literacy exam preparation materials',
     'SQLD certification key summary slides',
   ]},
-  { id: 30, name: '교육공학', nameEn: 'Educational Technology', icon: '🧪', prompts: [
+  { id: 38, name: '교육공학', nameEn: 'Educational Technology', icon: '🧪', prompts: [
     '플립드 러닝 적용 사례 발표',
     '게이미피케이션 교육 설계 자료',
     '이러닝 플랫폼 비교 분석 발표',
@@ -704,8 +888,8 @@ export const categories: Category[] = [
     'Educational metaverse project presentation',
   ]},
 
-  // 의료 & 건강 (31-40)
-  { id: 31, name: '의학 연구', nameEn: 'Medical Research', icon: '🏥', prompts: [
+  // 의료 & 건강 (39-48)
+  { id: 39, name: '의학 연구', nameEn: 'Medical Research', icon: '🏥', prompts: [
     '신약 개발 임상시험 결과 발표',
     '의학 학회 논문 발표 슬라이드',
     '유전체 분석 연구 결과 발표',
@@ -728,7 +912,7 @@ export const categories: Category[] = [
     'Chronic disease management research presentation',
     'Vaccine development research outcomes report',
   ]},
-  { id: 32, name: '병원 경영', nameEn: 'Hospital Management', icon: '🏨', prompts: [
+  { id: 40, name: '병원 경영', nameEn: 'Hospital Management', icon: '🏨', prompts: [
     '병원 경영 실적 보고서',
     '의료 서비스 품질 개선 제안서',
     '스마트 병원 구축 프로젝트 발표',
@@ -751,7 +935,7 @@ export const categories: Category[] = [
     'Hospital safety management report',
     'Medical waste management improvement plan',
   ]},
-  { id: 33, name: '건강/웰니스', nameEn: 'Health & Wellness', icon: '💪', prompts: [
+  { id: 41, name: '건강/웰니스', nameEn: 'Health & Wellness', icon: '💪', prompts: [
     '기업 건강관리 프로그램 제안서',
     '멘탈 헬스케어 서비스 소개',
     '영양 관리 프로그램 프레젠테이션',
@@ -774,7 +958,7 @@ export const categories: Category[] = [
     'Obesity management program introduction',
     'Elderly health management education materials',
   ]},
-  { id: 34, name: '제약/바이오', nameEn: 'Pharmaceutical & Biotech', icon: '💊', prompts: [
+  { id: 42, name: '제약/바이오', nameEn: 'Pharmaceutical & Biotech', icon: '💊', prompts: [
     '신약 파이프라인 투자자 발표',
     '바이오시밀러 개발 전략 발표',
     '약물 안전성 데이터 보고서',
@@ -797,7 +981,7 @@ export const categories: Category[] = [
     'Pharmaceutical digital transformation strategy presentation',
     'Biotech venture fundraising materials',
   ]},
-  { id: 35, name: '치과/한의학', nameEn: 'Dentistry & Traditional Medicine', icon: '🦷', prompts: [
+  { id: 43, name: '치과/한의학', nameEn: 'Dentistry & Traditional Medicine', icon: '🦷', prompts: [
     '치과 임플란트 기술 세미나 자료',
     '교정 치료 사례 발표 프레젠테이션',
     '한방 치료 효능 연구 발표',
@@ -820,7 +1004,7 @@ export const categories: Category[] = [
     'Digital dentistry technology introduction',
     'Traditional Korean medicine modernization strategy presentation',
   ]},
-  { id: 36, name: '간호/보건', nameEn: 'Nursing & Public Health', icon: '👩‍⚕️', prompts: [
+  { id: 44, name: '간호/보건', nameEn: 'Nursing & Public Health', icon: '👩‍⚕️', prompts: [
     '간호 프로세스 교육 프레젠테이션',
     '감염 관리 프로토콜 교육 자료',
     '보건 정책 분석 발표자료',
@@ -843,7 +1027,7 @@ export const categories: Category[] = [
     'Nursing research findings presentation slides',
     'Community health education materials',
   ]},
-  { id: 37, name: '의료기기', nameEn: 'Medical Devices', icon: '🩺', prompts: [
+  { id: 45, name: '의료기기', nameEn: 'Medical Devices', icon: '🩺', prompts: [
     '의료기기 제품 소개 프레젠테이션',
     '의료기기 인허가 절차 가이드',
     '웨어러블 의료기기 기술 발표',
@@ -866,7 +1050,7 @@ export const categories: Category[] = [
     'Medical device quality management training materials',
     'Remote monitoring device proposal',
   ]},
-  { id: 38, name: '심리학/상담', nameEn: 'Psychology & Counseling', icon: '🧠', prompts: [
+  { id: 46, name: '심리학/상담', nameEn: 'Psychology & Counseling', icon: '🧠', prompts: [
     '인지행동치료 사례 발표',
     '심리검사 결과 해석 교육 자료',
     '아동 심리 발달 세미나 슬라이드',
@@ -889,7 +1073,7 @@ export const categories: Category[] = [
     'Addiction counseling program introduction',
     'Crisis intervention protocol training',
   ]},
-  { id: 39, name: '영양학', nameEn: 'Nutrition Science', icon: '🥗', prompts: [
+  { id: 47, name: '영양학', nameEn: 'Nutrition Science', icon: '🥗', prompts: [
     '임상 영양학 강의 슬라이드',
     '식품 영양 성분 분석 보고서',
     '식단 관리 프로그램 소개',
@@ -912,7 +1096,7 @@ export const categories: Category[] = [
     'Food service management improvement proposal',
     'Nutritional epidemiology research findings presentation',
   ]},
-  { id: 40, name: '공중보건', nameEn: 'Public Health', icon: '🌍', prompts: [
+  { id: 48, name: '공중보건', nameEn: 'Public Health', icon: '🌍', prompts: [
     '전염병 대응 전략 발표자료',
     '백신 접종 캠페인 기획서',
     '환경보건 정책 분석 발표',
@@ -936,8 +1120,8 @@ export const categories: Category[] = [
     'Disaster health response manual training',
   ]},
 
-  // 과학 & 공학 (41-50)
-  { id: 41, name: '물리학', nameEn: 'Physics', icon: '⚛️', prompts: [
+  // 과학 & 공학 (49-58)
+  { id: 49, name: '물리학', nameEn: 'Physics', icon: '⚛️', prompts: [
     '양자역학 기초 강의 슬라이드',
     '입자물리학 연구 결과 발표',
     '천체물리학 세미나 프레젠테이션',
@@ -960,7 +1144,7 @@ export const categories: Category[] = [
     'Superconductor technology trends presentation',
     'Theory of relativity education presentation',
   ]},
-  { id: 42, name: '화학/재료', nameEn: 'Chemistry & Materials', icon: '🧬', prompts: [
+  { id: 50, name: '화학/재료', nameEn: 'Chemistry & Materials', icon: '🧬', prompts: [
     '신소재 개발 연구 결과 발표',
     '촉매 화학 연구 성과 보고서',
     '고분자 재료 기술 세미나 자료',
@@ -983,7 +1167,7 @@ export const categories: Category[] = [
     'Surface treatment technology seminar materials',
     'Green chemistry research presentation',
   ]},
-  { id: 43, name: '생명과학', nameEn: 'Life Sciences', icon: '🧫', prompts: [
+  { id: 51, name: '생명과학', nameEn: 'Life Sciences', icon: '🧫', prompts: [
     '유전자 편집(CRISPR) 연구 발표',
     '단백질 구조 분석 결과 발표',
     '세포 생물학 강의 슬라이드',
@@ -1006,7 +1190,7 @@ export const categories: Category[] = [
     'Ecosystem analysis research report',
     'Bioinformatics tools introduction presentation',
   ]},
-  { id: 44, name: '기계공학', nameEn: 'Mechanical Engineering', icon: '⚙️', prompts: [
+  { id: 52, name: '기계공학', nameEn: 'Mechanical Engineering', icon: '⚙️', prompts: [
     '기계 설계 프로젝트 발표',
     '열유체 시스템 해석 결과 보고서',
     '정밀 가공 기술 세미나 자료',
@@ -1029,7 +1213,7 @@ export const categories: Category[] = [
     'Energy efficiency optimization presentation',
     'Industrial automation system proposal',
   ]},
-  { id: 45, name: '전기/전자공학', nameEn: 'Electrical & Electronics Engineering', icon: '🔌', prompts: [
+  { id: 53, name: '전기/전자공학', nameEn: 'Electrical & Electronics Engineering', icon: '🔌', prompts: [
     '반도체 공정 기술 발표',
     '전력 시스템 설계 프레젠테이션',
     'PCB 설계 기술 세미나 자료',
@@ -1052,7 +1236,7 @@ export const categories: Category[] = [
     'Display technology analysis presentation',
     'Electric vehicle battery technology seminar',
   ]},
-  { id: 46, name: '토목/건축', nameEn: 'Civil Engineering & Architecture', icon: '🏗️', prompts: [
+  { id: 54, name: '토목/건축', nameEn: 'Civil Engineering & Architecture', icon: '🏗️', prompts: [
     '건축 설계 프로젝트 프레젠테이션',
     '구조 해석 결과 보고서',
     '스마트 건설 기술 도입 제안서',
@@ -1075,7 +1259,7 @@ export const categories: Category[] = [
     'Disaster prevention system development proposal',
     'Construction project management report',
   ]},
-  { id: 47, name: '환경공학', nameEn: 'Environmental Engineering', icon: '🌱', prompts: [
+  { id: 55, name: '환경공학', nameEn: 'Environmental Engineering', icon: '🌱', prompts: [
     '대기오염 저감 기술 발표',
     '수처리 시스템 설계 프레젠테이션',
     '폐기물 관리 전략 보고서',
@@ -1098,7 +1282,7 @@ export const categories: Category[] = [
     'Ecosystem restoration project report',
     'Environmental monitoring system proposal',
   ]},
-  { id: 48, name: '항공우주', nameEn: 'Aerospace', icon: '🛰️', prompts: [
+  { id: 56, name: '항공우주', nameEn: 'Aerospace', icon: '🛰️', prompts: [
     '위성 개발 프로젝트 발표',
     '항공기 설계 기술 세미나 자료',
     '우주 탐사 미션 프레젠테이션',
@@ -1121,7 +1305,7 @@ export const categories: Category[] = [
     'Air traffic control system introduction',
     'Space station project presentation',
   ]},
-  { id: 49, name: '에너지공학', nameEn: 'Energy Engineering', icon: '⚡', prompts: [
+  { id: 57, name: '에너지공학', nameEn: 'Energy Engineering', icon: '⚡', prompts: [
     '태양광 발전 시스템 설계 발표',
     '풍력 에너지 프로젝트 제안서',
     '수소 에너지 기술 동향 발표',
@@ -1144,7 +1328,7 @@ export const categories: Category[] = [
     'Electric vehicle charging infrastructure proposal',
     'Marine energy technology development presentation',
   ]},
-  { id: 50, name: '수학/통계', nameEn: 'Mathematics & Statistics', icon: '📐', prompts: [
+  { id: 58, name: '수학/통계', nameEn: 'Mathematics & Statistics', icon: '📐', prompts: [
     '통계 분석 방법론 강의 슬라이드',
     '머신러닝 수학 기초 교육 자료',
     '최적화 알고리즘 연구 발표',
@@ -1168,8 +1352,8 @@ export const categories: Category[] = [
     'Time series analysis techniques seminar materials',
   ]},
 
-  // 예술 & 디자인 (51-60)
-  { id: 51, name: '그래픽 디자인', nameEn: 'Graphic Design', icon: '🖌️', prompts: [
+  // 예술 & 디자인 (59-68)
+  { id: 59, name: '그래픽 디자인', nameEn: 'Graphic Design', icon: '🖌️', prompts: [
     '브랜드 아이덴티티 디자인 포트폴리오',
     '타이포그래피 트렌드 분석 발표',
     '패키지 디자인 프로젝트 발표',
@@ -1192,7 +1376,7 @@ export const categories: Category[] = [
     'Environmental graphic design proposal',
     'Digital art works presentation',
   ]},
-  { id: 52, name: '영상/미디어', nameEn: 'Video & Media', icon: '🎬', prompts: [
+  { id: 60, name: '영상/미디어', nameEn: 'Video & Media', icon: '🎬', prompts: [
     '영화 제작 기획서 프레젠테이션',
     '다큐멘터리 기획 제안서',
     '유튜브 채널 전략 발표',
@@ -1215,7 +1399,7 @@ export const categories: Category[] = [
     'Short-form content strategy presentation',
     'Broadcast program proposal presentation',
   ]},
-  { id: 53, name: '음악/공연', nameEn: 'Music & Performing Arts', icon: '🎵', prompts: [
+  { id: 61, name: '음악/공연', nameEn: 'Music & Performing Arts', icon: '🎵', prompts: [
     '공연 기획서 프레젠테이션',
     '음악 페스티벌 제안서',
     '뮤지컬 제작 기획 발표',
@@ -1238,7 +1422,7 @@ export const categories: Category[] = [
     'Music therapy program introduction',
     'Concert technical production proposal',
   ]},
-  { id: 54, name: '건축/인테리어', nameEn: 'Architecture & Interior Design', icon: '🏠', prompts: [
+  { id: 62, name: '건축/인테리어', nameEn: 'Architecture & Interior Design', icon: '🏠', prompts: [
     '건축 설계 포트폴리오 발표',
     '인테리어 디자인 제안서',
     '리모델링 프로젝트 프레젠테이션',
@@ -1261,7 +1445,7 @@ export const categories: Category[] = [
     'Office space innovation proposal',
     'Residential complex design presentation',
   ]},
-  { id: 55, name: '패션/뷰티', nameEn: 'Fashion & Beauty', icon: '👗', prompts: [
+  { id: 63, name: '패션/뷰티', nameEn: 'Fashion & Beauty', icon: '👗', prompts: [
     '패션 컬렉션 프레젠테이션',
     '뷰티 브랜드 런칭 발표자료',
     '패션 트렌드 분석 보고서',
@@ -1284,7 +1468,7 @@ export const categories: Category[] = [
     'Fashion tech innovation case presentation',
     'K-Beauty global strategy presentation',
   ]},
-  { id: 56, name: '사진/촬영', nameEn: 'Photography', icon: '📷', prompts: [
+  { id: 64, name: '사진/촬영', nameEn: 'Photography', icon: '📷', prompts: [
     '사진 포트폴리오 프레젠테이션',
     '사진 촬영 기법 교육 자료',
     '제품 사진 촬영 가이드',
@@ -1307,7 +1491,7 @@ export const categories: Category[] = [
     'Photography exhibition proposal',
     'Commercial photography portfolio',
   ]},
-  { id: 57, name: '게임 디자인', nameEn: 'Game Design', icon: '🎮', prompts: [
+  { id: 65, name: '게임 디자인', nameEn: 'Game Design', icon: '🎮', prompts: [
     '게임 기획서 프레젠테이션',
     '게임 아트 스타일 가이드',
     '레벨 디자인 문서 발표',
@@ -1330,7 +1514,7 @@ export const categories: Category[] = [
     'Esports league planning presentation',
     'Game QA process training materials',
   ]},
-  { id: 58, name: '산업디자인', nameEn: 'Industrial Design', icon: '🔧', prompts: [
+  { id: 66, name: '산업디자인', nameEn: 'Industrial Design', icon: '🔧', prompts: [
     '제품 디자인 포트폴리오 발표',
     '사용자 중심 디자인 리서치 발표',
     '프로토타입 개발 과정 프레젠테이션',
@@ -1353,7 +1537,7 @@ export const categories: Category[] = [
     'Design process training materials',
     'Universal design application case presentation',
   ]},
-  { id: 59, name: '미술/전시', nameEn: 'Fine Art & Exhibitions', icon: '🎭', prompts: [
+  { id: 67, name: '미술/전시', nameEn: 'Fine Art & Exhibitions', icon: '🎭', prompts: [
     '전시 기획서 프레젠테이션',
     '현대 미술 작품 소개 발표',
     '미술관 운영 전략 발표',
@@ -1376,7 +1560,7 @@ export const categories: Category[] = [
     'Media art project presentation',
     'Public art project proposal',
   ]},
-  { id: 60, name: '공예/핸드메이드', nameEn: 'Crafts & Handmade', icon: '🧶', prompts: [
+  { id: 68, name: '공예/핸드메이드', nameEn: 'Crafts & Handmade', icon: '🧶', prompts: [
     '공예 브랜드 소개 프레젠테이션',
     '핸드메이드 마켓 기획서',
     '전통 공예 현대화 프로젝트 발표',
@@ -1400,8 +1584,8 @@ export const categories: Category[] = [
     'Craft education program proposal',
   ]},
 
-  // 사회 & 인문 (61-70)
-  { id: 61, name: '법률/법학', nameEn: 'Law & Legal Studies', icon: '⚖️', prompts: [
+  // 사회 & 인문 (69-78)
+  { id: 69, name: '법률/법학', nameEn: 'Law & Legal Studies', icon: '⚖️', prompts: [
     '법률 개정 영향 분석 발표',
     '기업 컴플라이언스 교육 자료',
     '지적재산권 전략 프레젠테이션',
@@ -1424,7 +1608,7 @@ export const categories: Category[] = [
     'ESG regulatory trends analysis presentation',
     'Dispute resolution procedures training materials',
   ]},
-  { id: 62, name: '정치/행정', nameEn: 'Politics & Public Administration', icon: '🏛️', prompts: [
+  { id: 70, name: '정치/행정', nameEn: 'Politics & Public Administration', icon: '🏛️', prompts: [
     '정책 제안서 프레젠테이션',
     '선거 캠페인 전략 발표',
     '지방자치 행정 개선 제안서',
@@ -1447,7 +1631,7 @@ export const categories: Category[] = [
     'Civil service training presentation',
     'Regional development strategy proposal',
   ]},
-  { id: 63, name: '경제/금융', nameEn: 'Economics & Finance', icon: '💹', prompts: [
+  { id: 71, name: '경제/금융', nameEn: 'Economics & Finance', icon: '💹', prompts: [
     '거시경제 동향 분석 발표',
     '금융시장 전망 리포트',
     '통화정책 분석 프레젠테이션',
@@ -1470,7 +1654,7 @@ export const categories: Category[] = [
     'Industrial structure analysis report',
     'Global economic crisis analysis presentation',
   ]},
-  { id: 64, name: '사회학', nameEn: 'Sociology', icon: '🌐', prompts: [
+  { id: 72, name: '사회학', nameEn: 'Sociology', icon: '🌐', prompts: [
     '사회 현상 분석 연구 발표',
     '인구 변화 동향 프레젠테이션',
     '도시 사회학 연구 결과 발표',
@@ -1493,7 +1677,7 @@ export const categories: Category[] = [
     'Gender studies research presentation',
     'Social enterprise case analysis presentation',
   ]},
-  { id: 65, name: '역사/문화', nameEn: 'History & Culture', icon: '📜', prompts: [
+  { id: 73, name: '역사/문화', nameEn: 'History & Culture', icon: '📜', prompts: [
     '한국사 주제 강의 슬라이드',
     '세계사 주요 사건 분석 발표',
     '문화유산 보존 프로젝트 발표',
@@ -1516,7 +1700,7 @@ export const categories: Category[] = [
     'Civilization comparative research presentation',
     'Documentary cultural heritage digitization project',
   ]},
-  { id: 66, name: '철학/윤리', nameEn: 'Philosophy & Ethics', icon: '🤔', prompts: [
+  { id: 74, name: '철학/윤리', nameEn: 'Philosophy & Ethics', icon: '🤔', prompts: [
     'AI 윤리 세미나 프레젠테이션',
     '기업 윤리 교육 슬라이드',
     '환경 윤리학 강의 자료',
@@ -1539,7 +1723,7 @@ export const categories: Category[] = [
     'Medical ethics case discussion materials',
     'Digital citizenship ethics education',
   ]},
-  { id: 67, name: '언어학/문학', nameEn: 'Linguistics & Literature', icon: '📖', prompts: [
+  { id: 75, name: '언어학/문학', nameEn: 'Linguistics & Literature', icon: '📖', prompts: [
     '한국어학 연구 발표 프레젠테이션',
     '비교문학 강의 슬라이드',
     '번역학 세미나 발표자료',
@@ -1562,7 +1746,7 @@ export const categories: Category[] = [
     'Creative writing workshop materials',
     'Digital humanities project presentation',
   ]},
-  { id: 68, name: '종교/신학', nameEn: 'Religion & Theology', icon: '🕊️', prompts: [
+  { id: 76, name: '종교/신학', nameEn: 'Religion & Theology', icon: '🕊️', prompts: [
     '비교종교학 강의 프레젠테이션',
     '종교 간 대화 세미나 자료',
     '신학 연구 발표 슬라이드',
@@ -1585,7 +1769,7 @@ export const categories: Category[] = [
     'Sociology of religion research presentation',
     'Pastoral counseling program introduction',
   ]},
-  { id: 69, name: '사회복지', nameEn: 'Social Welfare', icon: '🤲', prompts: [
+  { id: 77, name: '사회복지', nameEn: 'Social Welfare', icon: '🤲', prompts: [
     '사회복지 정책 분석 발표',
     '복지 프로그램 기획서',
     '아동복지 서비스 소개 발표',
@@ -1608,7 +1792,7 @@ export const categories: Category[] = [
     'Mental health welfare services introduction',
     'Multicultural family support program',
   ]},
-  { id: 70, name: '국제관계', nameEn: 'International Relations', icon: '🌏', prompts: [
+  { id: 78, name: '국제관계', nameEn: 'International Relations', icon: '🌏', prompts: [
     '국제 안보 동향 분석 발표',
     '외교 전략 세미나 프레젠테이션',
     '국제 개발 협력 프로젝트 발표',
@@ -1632,8 +1816,8 @@ export const categories: Category[] = [
     'Public diplomacy strategy presentation',
   ]},
 
-  // 산업 & 비즈니스 (71-80)
-  { id: 71, name: '제조업', nameEn: 'Manufacturing', icon: '🏭', prompts: [
+  // 산업 & 비즈니스 (79-88)
+  { id: 79, name: '제조업', nameEn: 'Manufacturing', icon: '🏭', prompts: [
     '스마트팩토리 구축 사례 발표',
     '제조 공정 최적화 보고서',
     '품질관리 시스템 교육 자료',
@@ -1656,7 +1840,7 @@ export const categories: Category[] = [
     'Automation line design presentation',
     'Manufacturing ESG strategy presentation',
   ]},
-  { id: 72, name: '유통/물류', nameEn: 'Distribution & Logistics', icon: '🚚', prompts: [
+  { id: 80, name: '유통/물류', nameEn: 'Distribution & Logistics', icon: '🚚', prompts: [
     '물류 자동화 시스템 제안서',
     '라스트마일 배송 최적화 발표',
     '유통 채널 전략 프레젠테이션',
@@ -1679,7 +1863,7 @@ export const categories: Category[] = [
     'Reverse logistics system proposal',
     'Drone delivery system planning presentation',
   ]},
-  { id: 73, name: '부동산', nameEn: 'Real Estate', icon: '🏙️', prompts: [
+  { id: 81, name: '부동산', nameEn: 'Real Estate', icon: '🏙️', prompts: [
     '부동산 개발 프로젝트 제안서',
     '상업용 부동산 투자 분석',
     '주거 단지 개발 계획 발표',
@@ -1702,7 +1886,7 @@ export const categories: Category[] = [
     'Logistics real estate investment analysis',
     'Urban redevelopment project presentation',
   ]},
-  { id: 74, name: '식음료(F&B)', nameEn: 'Food & Beverage', icon: '🍽️', prompts: [
+  { id: 82, name: '식음료(F&B)', nameEn: 'Food & Beverage', icon: '🍽️', prompts: [
     '레스토랑 사업 기획서 발표',
     '식품 신제품 런칭 프레젠테이션',
     '프랜차이즈 사업 설명회 자료',
@@ -1725,7 +1909,7 @@ export const categories: Category[] = [
     'Wine and spirits education presentation',
     'Meal kit business plan presentation',
   ]},
-  { id: 75, name: '관광/호텔', nameEn: 'Tourism & Hospitality', icon: '✈️', prompts: [
+  { id: 83, name: '관광/호텔', nameEn: 'Tourism & Hospitality', icon: '✈️', prompts: [
     '관광지 개발 프로젝트 발표',
     '호텔 경영 전략 프레젠테이션',
     '관광 마케팅 전략 발표',
@@ -1748,7 +1932,7 @@ export const categories: Category[] = [
     'Tourism digital transformation strategy',
     'Cultural tourism content development presentation',
   ]},
-  { id: 76, name: '농업/식량', nameEn: 'Agriculture & Food Security', icon: '🌾', prompts: [
+  { id: 84, name: '농업/식량', nameEn: 'Agriculture & Food Security', icon: '🌾', prompts: [
     '스마트 농업 기술 소개 발표',
     '농업 생산성 향상 전략 보고서',
     '식량 안보 정책 분석 발표',
@@ -1771,7 +1955,7 @@ export const categories: Category[] = [
     'Aquaculture technology introduction presentation',
     'Agriculture venture business plan',
   ]},
-  { id: 77, name: '자동차/모빌리티', nameEn: 'Automotive & Mobility', icon: '🚗', prompts: [
+  { id: 85, name: '자동차/모빌리티', nameEn: 'Automotive & Mobility', icon: '🚗', prompts: [
     '전기차 기술 동향 발표',
     '자율주행 기술 개발 현황 발표',
     '모빌리티 서비스(MaaS) 전략',
@@ -1794,7 +1978,7 @@ export const categories: Category[] = [
     'Vehicle sharing service business plan',
     'Automotive design trends analysis',
   ]},
-  { id: 78, name: '미디어/출판', nameEn: 'Media & Publishing', icon: '📰', prompts: [
+  { id: 86, name: '미디어/출판', nameEn: 'Media & Publishing', icon: '📰', prompts: [
     '디지털 미디어 전략 발표',
     '출판 산업 동향 분석 보고서',
     '콘텐츠 플랫폼 사업 기획서',
@@ -1817,7 +2001,7 @@ export const categories: Category[] = [
     'OTT service strategy analysis presentation',
     'Print industry digitalization strategy',
   ]},
-  { id: 79, name: '보험/금융서비스', nameEn: 'Insurance & Financial Services', icon: '🏦', prompts: [
+  { id: 87, name: '보험/금융서비스', nameEn: 'Insurance & Financial Services', icon: '🏦', prompts: [
     '인슈어테크 서비스 소개 발표',
     '보험 상품 설계 프레젠테이션',
     '자산관리 서비스 소개 발표',
@@ -1840,7 +2024,7 @@ export const categories: Category[] = [
     'Retirement pension education presentation',
     'Financial regulation trends analysis presentation',
   ]},
-  { id: 80, name: '스포츠/레저', nameEn: 'Sports & Leisure', icon: '⚽', prompts: [
+  { id: 88, name: '스포츠/레저', nameEn: 'Sports & Leisure', icon: '⚽', prompts: [
     '스포츠 구단 경영 전략 발표',
     '스포츠 마케팅 캠페인 기획서',
     '체육 시설 운영 계획서',
@@ -1864,8 +2048,8 @@ export const categories: Category[] = [
     'Sports broadcasting planning presentation',
   ]},
 
-  // 정부 & 공공 (81-90)
-  { id: 81, name: '정부과제', nameEn: 'Government Projects', icon: '🇰🇷', prompts: [
+  // 정부 & 공공 (89-98)
+  { id: 89, name: '정부과제', nameEn: 'Government Projects', icon: '🇰🇷', prompts: [
     '국가 R&D 과제 발표자료',
     '정부지원사업 선정 심사 발표',
     '공공 기술 이전 사업 제안서',
@@ -1888,7 +2072,7 @@ export const categories: Category[] = [
     'Digital New Deal business plan presentation',
     'Social value realization project proposal',
   ]},
-  { id: 82, name: '국방/안보', nameEn: 'Defense & Security', icon: '🛡️', prompts: [
+  { id: 90, name: '국방/안보', nameEn: 'Defense & Security', icon: '🛡️', prompts: [
     '국방 기술 개발 프로젝트 발표',
     '사이버 안보 전략 프레젠테이션',
     '방위 산업 동향 분석 발표',
@@ -1911,7 +2095,7 @@ export const categories: Category[] = [
     'National defense space strategy presentation',
     'Defense export strategy presentation',
   ]},
-  { id: 83, name: '도시/교통', nameEn: 'Urban Planning & Transportation', icon: '🚇', prompts: [
+  { id: 91, name: '도시/교통', nameEn: 'Urban Planning & Transportation', icon: '🚇', prompts: [
     '도시 교통 계획 프레젠테이션',
     '대중교통 개선 방안 발표',
     '스마트시티 프로젝트 제안서',
@@ -1934,7 +2118,7 @@ export const categories: Category[] = [
     'ITS (Intelligent Transportation System) implementation proposal',
     'Pedestrian-oriented urban design presentation',
   ]},
-  { id: 84, name: '재난/안전', nameEn: 'Disaster & Safety', icon: '🚨', prompts: [
+  { id: 92, name: '재난/안전', nameEn: 'Disaster & Safety', icon: '🚨', prompts: [
     '재난 대응 매뉴얼 교육 자료',
     '안전 관리 시스템 구축 제안서',
     '소방 안전 교육 프레젠테이션',
@@ -1957,7 +2141,7 @@ export const categories: Category[] = [
     'Flood and storm preparedness manual training',
     'Safety culture promotion campaign proposal',
   ]},
-  { id: 85, name: '환경정책', nameEn: 'Environmental Policy', icon: '🌿', prompts: [
+  { id: 93, name: '환경정책', nameEn: 'Environmental Policy', icon: '🌿', prompts: [
     '기후변화 대응 정책 발표',
     '탄소중립 로드맵 프레젠테이션',
     '환경 규제 동향 분석 발표',
@@ -1980,7 +2164,7 @@ export const categories: Category[] = [
     'Circular resource management policy presentation',
     'Climate finance strategy presentation',
   ]},
-  { id: 86, name: '복지정책', nameEn: 'Welfare Policy', icon: '🏡', prompts: [
+  { id: 94, name: '복지정책', nameEn: 'Welfare Policy', icon: '🏡', prompts: [
     '국민연금 제도 개선 발표',
     '건강보험 정책 분석 프레젠테이션',
     '주거 복지 정책 제안서',
@@ -2003,7 +2187,7 @@ export const categories: Category[] = [
     'Youth policy comprehensive presentation',
     'Social safety net strengthening strategy presentation',
   ]},
-  { id: 87, name: '문화정책', nameEn: 'Cultural Policy', icon: '🎪', prompts: [
+  { id: 95, name: '문화정책', nameEn: 'Cultural Policy', icon: '🎪', prompts: [
     '문화 예술 진흥 정책 발표',
     '문화 콘텐츠 산업 전략',
     'K-Culture 글로벌 전략 발표',
@@ -2026,7 +2210,7 @@ export const categories: Category[] = [
     'Media policy analysis presentation',
     'Cultural impact assessment report',
   ]},
-  { id: 88, name: '교육정책', nameEn: 'Education Policy', icon: '📖', prompts: [
+  { id: 96, name: '교육정책', nameEn: 'Education Policy', icon: '📖', prompts: [
     '교육과정 개편 방향 발표',
     '디지털 교육 전환 전략',
     '대학 혁신 정책 프레젠테이션',
@@ -2049,7 +2233,7 @@ export const categories: Category[] = [
     'International education cooperation project presentation',
     'Education finance efficiency measures',
   ]},
-  { id: 89, name: '과학기술정책', nameEn: 'Science & Technology Policy', icon: '🔭', prompts: [
+  { id: 97, name: '과학기술정책', nameEn: 'Science & Technology Policy', icon: '🔭', prompts: [
     '국가 R&D 전략 발표자료',
     '과학기술 혁신 전략 프레젠테이션',
     '기초과학 투자 전략 발표',
@@ -2072,7 +2256,7 @@ export const categories: Category[] = [
     'Core technology acquisition strategy presentation',
     'Science and technology governance improvement measures',
   ]},
-  { id: 90, name: '지자체/지역', nameEn: 'Local Government & Regional', icon: '🗺️', prompts: [
+  { id: 98, name: '지자체/지역', nameEn: 'Local Government & Regional', icon: '🗺️', prompts: [
     '지역 발전 계획 프레젠테이션',
     '지방 재정 운용 보고서',
     '지역 산업 육성 전략 발표',
@@ -2096,8 +2280,8 @@ export const categories: Category[] = [
     'Regional innovation ecosystem development strategy',
   ]},
 
-  // 특수 & 기타 (91-100)
-  { id: 91, name: 'ESG/지속가능', nameEn: 'ESG & Sustainability', icon: '♻️', prompts: [
+  // 특수 & 기타 (99-108)
+  { id: 99, name: 'ESG/지속가능', nameEn: 'ESG & Sustainability', icon: '♻️', prompts: [
     'ESG 경영 전략 프레젠테이션',
     '지속가능보고서 발표자료',
     '탄소 발자국 감축 전략 발표',
@@ -2120,7 +2304,7 @@ export const categories: Category[] = [
     'ESG supply chain management presentation',
     'Green finance strategy presentation',
   ]},
-  { id: 92, name: '메타버스/XR', nameEn: 'Metaverse & XR', icon: '🥽', prompts: [
+  { id: 100, name: '메타버스/XR', nameEn: 'Metaverse & XR', icon: '🥽', prompts: [
     '메타버스 플랫폼 사업 계획서',
     'VR 교육 콘텐츠 개발 발표',
     'AR 마케팅 캠페인 기획서',
@@ -2143,7 +2327,7 @@ export const categories: Category[] = [
     'MR (Mixed Reality) industrial application presentation',
     'Metaverse standardization trends analysis',
   ]},
-  { id: 93, name: '우주산업', nameEn: 'Space Industry', icon: '🌌', prompts: [
+  { id: 101, name: '우주산업', nameEn: 'Space Industry', icon: '🌌', prompts: [
     '민간 우주 사업 기획서',
     '위성 데이터 활용 사업 제안서',
     '우주 관광 비즈니스 모델 발표',
@@ -2166,7 +2350,7 @@ export const categories: Category[] = [
     'Space station construction project presentation',
     'New Space industry trends analysis',
   ]},
-  { id: 94, name: '양자컴퓨팅', nameEn: 'Quantum Computing', icon: '🔮', prompts: [
+  { id: 102, name: '양자컴퓨팅', nameEn: 'Quantum Computing', icon: '🔮', prompts: [
     '양자컴퓨터 기술 소개 발표',
     '양자 알고리즘 연구 결과 발표',
     '양자 암호 기술 동향 발표',
@@ -2189,7 +2373,7 @@ export const categories: Category[] = [
     'Quantum computing education program introduction',
     'Quantum communication network strategy presentation',
   ]},
-  { id: 95, name: '반도체', nameEn: 'Semiconductors', icon: '💎', prompts: [
+  { id: 103, name: '반도체', nameEn: 'Semiconductors', icon: '💎', prompts: [
     '반도체 산업 동향 분석 발표',
     '첨단 공정 기술 세미나 자료',
     '시스템 반도체 설계 발표',
@@ -2212,7 +2396,7 @@ export const categories: Category[] = [
     'Automotive semiconductor market analysis',
     'Semiconductor workforce development strategy presentation',
   ]},
-  { id: 96, name: '바이오/생명', nameEn: 'Biotechnology & Life Sciences', icon: '🧬', prompts: [
+  { id: 104, name: '바이오/생명', nameEn: 'Biotechnology & Life Sciences', icon: '🧬', prompts: [
     '바이오 의약품 개발 현황 발표',
     '유전자 치료 기술 소개',
     '바이오 시밀러 시장 분석',
@@ -2235,7 +2419,7 @@ export const categories: Category[] = [
     'Biosensor technology introduction',
     'Biotech industry investment analysis',
   ]},
-  { id: 97, name: '이벤트/컨퍼런스', nameEn: 'Events & Conferences', icon: '🎤', prompts: [
+  { id: 105, name: '이벤트/컨퍼런스', nameEn: 'Events & Conferences', icon: '🎤', prompts: [
     '컨퍼런스 기조연설 프레젠테이션',
     '기업 행사 기획서 발표',
     '전시회 참가 기획 프레젠테이션',
@@ -2258,7 +2442,7 @@ export const categories: Category[] = [
     'Industry forum presentation',
     'Technology demo day presentation',
   ]},
-  { id: 98, name: '비영리/NGO', nameEn: 'Nonprofit & NGO', icon: '💚', prompts: [
+  { id: 106, name: '비영리/NGO', nameEn: 'Nonprofit & NGO', icon: '💚', prompts: [
     '비영리단체 활동 보고서 발표',
     '기부 캠페인 기획 프레젠테이션',
     '국제 개발 협력 프로젝트 발표',
@@ -2281,7 +2465,7 @@ export const categories: Category[] = [
     'Disaster relief activity report',
     'Community development project presentation',
   ]},
-  { id: 99, name: '개인 발표', nameEn: 'Personal Presentations', icon: '🙋', prompts: [
+  { id: 107, name: '개인 발표', nameEn: 'Personal Presentations', icon: '🙋', prompts: [
     '자기소개 프레젠테이션',
     '이직 포트폴리오 발표',
     '프리랜서 서비스 소개 자료',
@@ -2304,7 +2488,7 @@ export const categories: Category[] = [
     'Wedding and event presentation slides',
     'Personal branding presentation',
   ]},
-  { id: 100, name: '기타/종합', nameEn: 'General & Miscellaneous', icon: '🔄', prompts: [
+  { id: 108, name: '기타/종합', nameEn: 'General & Miscellaneous', icon: '🔄', prompts: [
     '다목적 범용 프레젠테이션 템플릿',
     '비교 분석 발표 범용 자료',
     '타임라인/로드맵 프레젠테이션',

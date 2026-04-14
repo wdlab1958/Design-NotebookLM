@@ -10,8 +10,8 @@ interface Props {
 
 const groupKeys = ['business', 'tech', 'education', 'medical', 'science', 'art', 'social', 'industry', 'government', 'special'] as const
 const groupRanges: [number, number][] = [
-  [1, 10], [11, 20], [21, 30], [31, 40], [41, 50],
-  [51, 60], [61, 70], [71, 80], [81, 90], [91, 100],
+  [1, 10], [11, 28], [29, 38], [39, 48], [49, 58],
+  [59, 68], [69, 78], [79, 88], [89, 98], [99, 108],
 ]
 
 export default function CategorySelector({ selectedCategory, onSelect }: Props) {
