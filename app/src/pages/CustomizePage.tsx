@@ -140,10 +140,34 @@ export default function CustomizePage() {
     }
   }, [])
 
-  const handleCopy = (text: string, step: number) => {
-    navigator.clipboard.writeText(text)
-    setCopiedStep(step)
-    setTimeout(() => setCopiedStep(null), 2000)
+  const handleCopy = async (text: string, step: number) => {
+    try {
+      if (navigator.clipboard) {
+        await navigator.clipboard.writeText(text)
+      } else {
+        const ta = document.createElement('textarea')
+        ta.value = text
+        ta.style.position = 'fixed'
+        ta.style.opacity = '0'
+        document.body.appendChild(ta)
+        ta.select()
+        document.execCommand('copy')
+        document.body.removeChild(ta)
+      }
+      setCopiedStep(step)
+      setTimeout(() => setCopiedStep(null), 2000)
+    } catch {
+      const ta = document.createElement('textarea')
+      ta.value = text
+      ta.style.position = 'fixed'
+      ta.style.opacity = '0'
+      document.body.appendChild(ta)
+      ta.select()
+      document.execCommand('copy')
+      document.body.removeChild(ta)
+      setCopiedStep(step)
+      setTimeout(() => setCopiedStep(null), 2000)
+    }
   }
 
   const toggleStep = (step: number) => {
@@ -235,9 +259,12 @@ export default function CustomizePage() {
       {/* 3 Steps */}
       {stepData.map(step => (
         <div key={step.num} className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
-          <button
+          <div
+            role="button"
+            tabIndex={0}
             onClick={() => toggleStep(step.num)}
-            className="w-full flex items-center justify-between p-3 hover:bg-[#334155]/30 transition-colors"
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') toggleStep(step.num) }}
+            className="w-full flex items-center justify-between p-3 hover:bg-[#334155]/30 transition-colors cursor-pointer"
           >
             <div className="flex items-center gap-2">
               <div className="w-6 h-6 rounded-full flex items-center justify-center text-[10px] font-bold"
@@ -263,7 +290,7 @@ export default function CustomizePage() {
                 : <ChevronDown className="w-4 h-4 text-[#64748b]" />
               }
             </div>
-          </button>
+          </div>
           {expandedSteps.has(step.num) && (
             <div className="p-3 pt-0">
               <pre className="bg-[#0f172a] rounded-lg p-4 text-[11px] leading-relaxed text-[#94a3b8] overflow-x-auto whitespace-pre-wrap border border-[#334155] max-h-[500px] overflow-y-auto">

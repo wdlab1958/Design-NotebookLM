@@ -24,9 +24,10 @@ export const en = {
 
   // Category Selector
   category: {
-    title: 'Select Category (100)',
+    title: 'Select Category (129)',
     searchPlaceholder: 'Search categories...',
     groups: {
+      'a3project': 'A3 AI/AX Project',
       'business': 'Business & Management',
       'tech': 'Technology & IT',
       'education': 'Education & Academia',

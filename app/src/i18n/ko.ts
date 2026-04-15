@@ -24,9 +24,10 @@ export const ko = {
 
   // Category Selector
   category: {
-    title: '카테고리 선택 (100개)',
+    title: '카테고리 선택 (129개)',
     searchPlaceholder: '카테고리 검색...',
     groups: {
+      'a3project': 'A3 AI/AX 프로젝트',
       'business': '비즈니스 & 경영',
       'tech': '기술 & IT',
       'education': '교육 & 학술',

@@ -8,9 +8,9 @@ interface Props {
   onSelect: (cat: Category) => void
 }
 
-const groupKeys = ['business', 'tech', 'education', 'medical', 'science', 'art', 'social', 'industry', 'government', 'special'] as const
+const groupKeys = ['a3project', 'business', 'tech', 'education', 'medical', 'science', 'art', 'social', 'industry', 'government', 'special'] as const
 const groupRanges: [number, number][] = [
-  [1, 10], [11, 28], [29, 38], [39, 48], [49, 58],
+  [109, 129], [1, 10], [11, 28], [29, 38], [39, 48], [49, 58],
   [59, 68], [69, 78], [79, 88], [89, 98], [99, 108],
 ]
 
