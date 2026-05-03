@@ -132,6 +132,8 @@ export default function CustomizePage() {
   const [config, setConfig] = useState<Config | null>(null)
   const [copiedStep, setCopiedStep] = useState<number | null>(null)
   const [expandedSteps, setExpandedSteps] = useState<Set<number>>(new Set([1, 2, 3]))
+  const [seqIndex, setSeqIndex] = useState(0)
+  const [seqJustCopied, setSeqJustCopied] = useState(false)
 
   useEffect(() => {
     const saved = localStorage.getItem('notebooklm_config')
@@ -301,24 +303,41 @@ export default function CustomizePage() {
         </div>
       ))}
 
-      {/* All-in-one copy */}
-      <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-4 flex items-center justify-between">
-        <div className="text-xs text-[#94a3b8]">
-          {t.customize.copyAllDesc}
+      {/* Sequential copy helper */}
+      <div className="bg-[#1e293b] rounded-xl border border-[#334155] p-4 flex items-center justify-between gap-4">
+        <div className="text-xs text-[#94a3b8] flex-1">
+          {t.customize.seqCopyDesc}
         </div>
         <button
-          onClick={() => handleCopy(
-            `=== ${t.customize.stepPrefix} 1 ===\n${step1}\n\n=== ${t.customize.stepPrefix} 2 ===\n${step2}\n\n=== ${t.customize.stepPrefix} 3 ===\n${step3}`,
-            99
-          )}
-          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-colors ${
-            copiedStep === 99
+          onClick={async () => {
+            if (seqIndex >= 3) {
+              setSeqIndex(0)
+              setSeqJustCopied(false)
+              return
+            }
+            const contents = [step1, step2, step3]
+            await handleCopy(contents[seqIndex], 100 + seqIndex)
+            setSeqJustCopied(true)
+            setSeqIndex(seqIndex + 1)
+          }}
+          className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${
+            seqIndex >= 3
               ? 'bg-[#22c55e] text-white'
-              : 'bg-[#3b82f6] hover:bg-[#2563eb] text-white'
+              : seqJustCopied
+                ? 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
+                : 'bg-[#3b82f6] hover:bg-[#2563eb] text-white'
           }`}
         >
-          {copiedStep === 99 ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
-          {copiedStep === 99 ? t.customize.copyAllDone : t.customize.copyAll}
+          {seqIndex >= 3
+            ? <Check className="w-3.5 h-3.5" />
+            : <Copy className="w-3.5 h-3.5" />}
+          {seqIndex >= 3
+            ? t.customize.seqDone
+            : seqJustCopied
+              ? t.customize.seqJustCopied.replace('{n}', String(seqIndex))
+              : seqIndex === 0
+                ? t.customize.seqStart
+                : t.customize.seqNext.replace('{n}', String(seqIndex + 1))}
         </button>
       </div>
     </div>

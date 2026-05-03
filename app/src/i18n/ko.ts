@@ -24,7 +24,7 @@ export const ko = {
 
   // Category Selector
   category: {
-    title: '카테고리 선택 (129개)',
+    title: '카테고리 선택 (133개)',
     searchPlaceholder: '카테고리 검색...',
     groups: {
       'a3project': 'A3 AI/AX 프로젝트',
@@ -120,6 +120,11 @@ export const ko = {
     copyAllDone: '전체 복사 완료!',
     copyAllDesc: '3개 단계 프롬프트를 한 번에 복사하여 NotebookLM에 붙여넣기',
     stepPrefix: '단계',
+    seqCopyDesc: 'NotebookLM 채팅창은 한 번에 한 단계씩 보내야 합니다. 클릭할 때마다 다음 단계가 클립보드에 복사됩니다.',
+    seqStart: '순차 복사 시작 (1단계)',
+    seqNext: '{n}단계 복사',
+    seqJustCopied: '{n}단계 복사됨 — 붙여넣고 다음 클릭',
+    seqDone: '완료! 다시 시작하려면 클릭',
   },
 
   // Language

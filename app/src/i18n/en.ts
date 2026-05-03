@@ -24,7 +24,7 @@ export const en = {
 
   // Category Selector
   category: {
-    title: 'Select Category (129)',
+    title: 'Select Category (133)',
     searchPlaceholder: 'Search categories...',
     groups: {
       'a3project': 'A3 AI/AX Project',
@@ -120,6 +120,11 @@ export const en = {
     copyAllDone: 'All Copied!',
     copyAllDesc: 'Copy all 3 step prompts at once to paste into NotebookLM',
     stepPrefix: 'Step',
+    seqCopyDesc: 'NotebookLM chat needs each step sent as a separate message. Each click copies the next step to your clipboard.',
+    seqStart: 'Start Sequential Copy (Step 1)',
+    seqNext: 'Copy Step {n}',
+    seqJustCopied: 'Step {n} copied — paste it, then click for next',
+    seqDone: 'Done! Click to restart',
   },
 
   // Language
