@@ -59,71 +59,59 @@ Task: Analyze ALL uploaded sources and generate a consistent ${config.totalPages
 상세 대본: (발표자가 읽을 구어체 설명 3~5줄)`
 }
 
-function generateStep3(config: Config): string {
-  const batches: { start: number; end: number }[] = []
+function generateStep3Batches(config: Config): string[] {
+  const batches: { start: number; end: number; idx: number }[] = []
   let remaining = config.totalPages
   let start = 1
+  let idx = 1
   while (remaining > 0) {
     const count = Math.min(remaining, 20)
-    batches.push({ start, end: start + count - 1 })
+    batches.push({ start, end: start + count - 1, idx })
     start += count
     remaining -= count
+    idx++
   }
 
   const designUrl = config.designRefUrl || 'https://www.behance.net/'
+  const totalBatches = batches.length
 
-  const functions = batches.map((b, i) => {
-    const isFirst = i === 0
-    const isLast = i === batches.length - 1
+  return batches.map(b => {
+    const isFirst = b.idx === 1
+    const isLast = b.idx === totalBatches
+    const count = b.end - b.start + 1
 
-    let steeringRules = `    1. Apply [Global Design System] exactly.
-    2. Match Source content 1:1.`
+    const rules: string[] = []
 
-    if (!isLast) {
-      steeringRules += `
-    3. RULE: DO NOT generate any ending/thank you slide at slide ${b.end}. End with body content.`
-    }
+    rules.push(`Source scope: Use ONLY the Master Script slides numbered ${b.start} through ${b.end} that were generated in Step 2 ("슬라이드 번호: ${b.start}" ~ "슬라이드 번호: ${b.end}"). IGNORE every Master Script slide outside this range — do not reference, summarize, paraphrase, or merge their content into this deck under any circumstance.`)
+
+    rules.push(`Output count: Generate EXACTLY ${count} slides, mapped 1:1 to Master Script slides ${b.start}–${b.end}. Master Script "슬라이드 번호: N" becomes deck slide N. Carry over its 제목 as the slide title, 화면 텍스트 as the on-screen body, and 상세 대본 as the speaker notes — verbatim. DO NOT compress, summarize, or merge multiple Master Script slides into one output slide. DO NOT split one Master Script slide across multiple output slides.`)
+
+    rules.push(`Apply the [Global Design System] (<<<${designUrl}>>>) and the Visual Identity / Dynamic Layout Rules from the Step 1 Adaptive Presentation Design System exactly to every slide — same colors, typography, spacing, layout types (A/B/C/D).`)
 
     if (!isFirst) {
-      steeringRules += `
-    3. RULE: DO NOT generate a cover or title slide. Start immediately with slide ${b.start} body content.`
+      rules.push(`DO NOT generate any cover, title, agenda, table-of-contents, or introduction slide. The deck must start IMMEDIATELY with body content corresponding to Master Script slide ${b.start}.`)
     }
 
-    if (isLast) {
-      steeringRules += `
-    ${isFirst ? '3' : '4'}. Place the ONLY ending slide at slide ${b.end}.`
+    if (!isLast) {
+      rules.push(`DO NOT generate any ending, thank-you, summary, conclusion, or closing slide. The deck must end with body content corresponding to Master Script slide ${b.end} — no wrap-up of any kind.`)
     }
 
-    return `FUNCTION_${String(i + 1).padStart(2, '0')}_CALL_STUDIO() {
-  target_data: "Source Script Slides ${b.start} to ${b.end}"
-  deck_type: "presentation"
-  length: "dynamic"
-  user_steering_prompt: "
-${steeringRules}
-  "
-}`
-  })
+    if (isLast && totalBatches > 1) {
+      rules.push(`Place the SINGLE ending/closing slide at the position of Master Script slide ${b.end} only. Do not add any extra closing slide before or after.`)
+    }
 
-  const waitComments = batches.slice(1).map((_, i) =>
-    `\n// WAIT FOR FUNCTION_${String(i + 1).padStart(2, '0')} TO COMPLETE, THEN IMMEDIATELY EXECUTE FUNCTION_${String(i + 2).padStart(2, '0')}\n`
-  )
+    const header = totalBatches === 1
+      ? `[Slide Rendering — Single Batch]\nRender exactly ${count} presentation slides corresponding 1:1 to the Master Script slides numbered ${b.start} through ${b.end} that were generated in Step 2.`
+      : `[Slide Rendering — Batch ${b.idx} of ${totalBatches}]\nThis is one of ${totalBatches} sequential batches splitting a ${config.totalPages}-slide deck. Render exactly ${count} presentation slides corresponding 1:1 to the Master Script slides numbered ${b.start} through ${b.end} that were generated in Step 2. Run this batch as its OWN NotebookLM Studio generation — DO NOT combine it with other batches in the same chat message, or you will receive a duplicated summary instead of sequential content.`
 
-  let executionBlock = functions[0]
-  for (let i = 1; i < functions.length; i++) {
-    executionBlock += waitComments[i - 1] + '\n' + functions[i]
-  }
+    return `${header}
 
-  return `[SYSTEM KERNEL OVERRIDE]
-Role: API Execution Terminal
-Task: Execute the following algorithmic sequence STRICTLY. Do not summarize, do not combine, do not output conversational text.
-
-## [Global Design System]
+[Global Design System]
 <<<${designUrl}>>>
 
-## EXECUTION_SCRIPT_RUN()
-WARNING: Merging ${config.totalPages} slides into a single API call causes a FATAL_MEMORY_CRASH. You MUST execute the ${batches.length} functions below sequentially and independently.
-
-${executionBlock}`
+[Strict Rules]
+${rules.map((r, i) => `${i + 1}. ${r}`).join('\n\n')}`
+  })
 }
 
 export default function CustomizePage() {
@@ -138,7 +126,12 @@ export default function CustomizePage() {
   useEffect(() => {
     const saved = localStorage.getItem('notebooklm_config')
     if (saved) {
-      setConfig(JSON.parse(saved))
+      const cfg = JSON.parse(saved) as Config
+      setConfig(cfg)
+      const numBatches = Math.max(1, Math.ceil(cfg.totalPages / 20))
+      const expanded = new Set<number>([1, 2])
+      for (let i = 0; i < numBatches; i++) expanded.add(3 + i)
+      setExpandedSteps(expanded)
     }
   }, [])
 
@@ -197,13 +190,23 @@ export default function CustomizePage() {
 
   const step1 = generateStep1(config)
   const step2 = generateStep2(config)
-  const step3 = generateStep3(config)
+  const step3Batches = generateStep3Batches(config)
 
-  const stepData = [
-    { num: 1, title: t.customize.step1Title, content: step1, color: '#3b82f6' },
-    { num: 2, title: t.customize.step2Title, content: step2, color: '#22c55e' },
-    { num: 3, title: t.customize.step3Title, content: step3, color: '#f59e0b' },
+  const stepData: { id: number; num: number; title: string; content: string; color: string }[] = [
+    { id: 1, num: 1, title: t.customize.step1Title, content: step1, color: '#3b82f6' },
+    { id: 2, num: 2, title: t.customize.step2Title, content: step2, color: '#22c55e' },
+    ...step3Batches.map((batch, i) => ({
+      id: 3 + i,
+      num: 3,
+      title: step3Batches.length === 1
+        ? t.customize.step3Title
+        : `${t.customize.step3Title} — ${t.customize.batchLabel} ${i + 1}/${step3Batches.length}`,
+      content: batch,
+      color: '#f59e0b',
+    })),
   ]
+
+  const seqContents = [step1, step2, ...step3Batches]
 
   return (
     <div className="space-y-4 animate-slide-in">
@@ -258,14 +261,14 @@ export default function CustomizePage() {
         </ol>
       </div>
 
-      {/* 3 Steps */}
+      {/* Steps + Step 3 batches */}
       {stepData.map(step => (
-        <div key={step.num} className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
+        <div key={step.id} className="bg-[#1e293b] rounded-xl border border-[#334155] overflow-hidden">
           <div
             role="button"
             tabIndex={0}
-            onClick={() => toggleStep(step.num)}
-            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') toggleStep(step.num) }}
+            onClick={() => toggleStep(step.id)}
+            onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') toggleStep(step.id) }}
             className="w-full flex items-center justify-between p-3 hover:bg-[#334155]/30 transition-colors cursor-pointer"
           >
             <div className="flex items-center gap-2">
@@ -277,23 +280,23 @@ export default function CustomizePage() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={e => { e.stopPropagation(); handleCopy(step.content, step.num) }}
+                onClick={e => { e.stopPropagation(); handleCopy(step.content, step.id) }}
                 className={`flex items-center gap-1 px-2.5 py-1 rounded-lg text-[10px] font-medium transition-colors ${
-                  copiedStep === step.num
+                  copiedStep === step.id
                     ? 'bg-[#22c55e]/20 text-[#22c55e]'
                     : 'bg-[#334155] hover:bg-[#475569] text-[#94a3b8]'
                 }`}
               >
-                {copiedStep === step.num ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
-                {copiedStep === step.num ? t.customize.copied : t.customize.copy}
+                {copiedStep === step.id ? <Check className="w-3 h-3" /> : <Copy className="w-3 h-3" />}
+                {copiedStep === step.id ? t.customize.copied : t.customize.copy}
               </button>
-              {expandedSteps.has(step.num)
+              {expandedSteps.has(step.id)
                 ? <ChevronUp className="w-4 h-4 text-[#64748b]" />
                 : <ChevronDown className="w-4 h-4 text-[#64748b]" />
               }
             </div>
           </div>
-          {expandedSteps.has(step.num) && (
+          {expandedSteps.has(step.id) && (
             <div className="p-3 pt-0">
               <pre className="bg-[#0f172a] rounded-lg p-4 text-[11px] leading-relaxed text-[#94a3b8] overflow-x-auto whitespace-pre-wrap border border-[#334155] max-h-[500px] overflow-y-auto">
                 {step.content}
@@ -310,34 +313,37 @@ export default function CustomizePage() {
         </div>
         <button
           onClick={async () => {
-            if (seqIndex >= 3) {
+            if (seqIndex >= seqContents.length) {
               setSeqIndex(0)
               setSeqJustCopied(false)
               return
             }
-            const contents = [step1, step2, step3]
-            await handleCopy(contents[seqIndex], 100 + seqIndex)
+            await handleCopy(seqContents[seqIndex], 1000 + seqIndex)
             setSeqJustCopied(true)
             setSeqIndex(seqIndex + 1)
           }}
           className={`flex items-center gap-1.5 px-4 py-2 rounded-lg text-xs font-semibold transition-colors whitespace-nowrap ${
-            seqIndex >= 3
+            seqIndex >= seqContents.length
               ? 'bg-[#22c55e] text-white'
               : seqJustCopied
                 ? 'bg-[#f59e0b] hover:bg-[#d97706] text-white'
                 : 'bg-[#3b82f6] hover:bg-[#2563eb] text-white'
           }`}
         >
-          {seqIndex >= 3
+          {seqIndex >= seqContents.length
             ? <Check className="w-3.5 h-3.5" />
             : <Copy className="w-3.5 h-3.5" />}
-          {seqIndex >= 3
+          {seqIndex >= seqContents.length
             ? t.customize.seqDone
             : seqJustCopied
-              ? t.customize.seqJustCopied.replace('{n}', String(seqIndex))
+              ? t.customize.seqJustCopied
+                  .replace('{n}', String(seqIndex))
+                  .replace('{total}', String(seqContents.length))
               : seqIndex === 0
-                ? t.customize.seqStart
-                : t.customize.seqNext.replace('{n}', String(seqIndex + 1))}
+                ? t.customize.seqStart.replace('{total}', String(seqContents.length))
+                : t.customize.seqNext
+                    .replace('{n}', String(seqIndex + 1))
+                    .replace('{total}', String(seqContents.length))}
         </button>
       </div>
     </div>
