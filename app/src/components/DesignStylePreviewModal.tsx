@@ -53,8 +53,8 @@ function SlideSet({ id }: { id: number }) {
 }
 
 interface SlideData { containerStyle: React.CSSProperties; render: React.ReactNode }
-const T = ({ w, h = 2, c = '#94a3b8', r = false, className = '' }: { w: string; h?: number; c?: string; r?: boolean; className?: string }) => (
-  <div className={`rounded${r ? '-full' : ''} ${className}`} style={{ width: w, height: h, background: c }} />
+const T = ({ w, h = 2, c = '#94a3b8', r = false, className = '', children }: { w: string; h?: number; c?: string; r?: boolean; className?: string; children?: React.ReactNode }) => (
+  <div className={`rounded${r ? '-full' : ''} ${className}`} style={{ width: w, height: h, background: c }}>{children}</div>
 )
 const Dot = ({ c, s = 6 }: { c: string; s?: number }) => (
   <div className="rounded-full flex-shrink-0" style={{ width: s, height: s, background: c }} />
