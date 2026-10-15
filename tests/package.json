@@ -1,0 +1,13 @@
+{
+  "name": "notebooklm-tests",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A/B · E2E · Chaos 테스트 (실행 중인 백엔드 8013 / 프론트 3017 대상)",
+  "scripts": {
+    "test": "node ab_test.mjs && node e2e_test.mjs && node chaos_test.mjs",
+    "test:ab": "node ab_test.mjs",
+    "test:e2e": "node e2e_test.mjs",
+    "test:chaos": "node chaos_test.mjs"
+  }
+}

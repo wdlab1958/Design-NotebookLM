@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { X, Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import type { DesignStyle } from '../data/designStyles'
+import { useLang } from '../i18n/lang'
 
 interface Props {
   style: DesignStyle
@@ -742,6 +743,7 @@ function getSlides(id: number): SlideData[] {
 }
 
 export default function DesignStylePreviewModal({ style, isSelected, onSelect, onClose }: Props) {
+  const { lang, t } = useLang()
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center animate-slide-in" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
@@ -749,25 +751,25 @@ export default function DesignStylePreviewModal({ style, isSelected, onSelect, o
         <div className="flex items-center justify-between p-4 border-b border-[#334155]">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-[#3b82f6]/20 flex items-center justify-center text-sm font-bold text-[#3b82f6]">{style.id}</div>
-            <div><h2 className="text-sm font-semibold text-white">{style.name}</h2><p className="text-[10px] text-[#64748b]">{style.nameEn}</p></div>
+            <div><h2 className="text-sm font-semibold text-white">{lang === 'en' ? style.nameEn : style.name}</h2><p className="text-[10px] text-[#64748b]">{lang === 'en' ? style.name : style.nameEn}</p></div>
           </div>
           <button onClick={onClose} className="p-1.5 rounded-lg hover:bg-[#334155] transition-colors"><X className="w-4 h-4 text-[#94a3b8]" /></button>
         </div>
         <div className="p-5">
-          <p className="text-[10px] text-[#64748b] mb-2">← → 좌우 화살표로 타이틀/콘텐츠 슬라이드를 확인하세요</p>
+          <p className="text-[10px] text-[#64748b] mb-2">{t.designPreview.navHint}</p>
           <div className="rounded-xl overflow-hidden border border-[#334155] shadow-lg"><SlideSet id={style.id} /></div>
         </div>
         <div className="px-5 pb-3">
           <div className="bg-[#0f172a] rounded-lg p-3 border border-[#334155]">
-            <h4 className="text-[10px] font-semibold text-[#64748b] mb-1">디자인 설명</h4>
-            <p className="text-xs text-[#94a3b8] leading-relaxed">{style.description}</p>
+            <h4 className="text-[10px] font-semibold text-[#64748b] mb-1">{t.designPreview.descLabel}</h4>
+            <p className="text-xs text-[#94a3b8] leading-relaxed">{lang === 'en' ? style.descriptionEn : style.description}</p>
           </div>
         </div>
         <div className="p-4 border-t border-[#334155] flex items-center justify-between">
-          <button onClick={onClose} className="px-4 py-2 rounded-lg bg-[#334155] hover:bg-[#475569] text-xs text-[#94a3b8] transition-colors">닫기</button>
+          <button onClick={onClose} className="px-4 py-2 rounded-lg bg-[#334155] hover:bg-[#475569] text-xs text-[#94a3b8] transition-colors">{t.designPreview.close}</button>
           <button onClick={() => { onSelect(style.id); onClose() }} className={`flex items-center gap-1.5 px-5 py-2 rounded-lg text-xs font-semibold transition-colors ${isSelected ? 'bg-[#22c55e] text-white' : 'bg-[#3b82f6] hover:bg-[#2563eb] text-white'}`}>
             {isSelected ? <Check className="w-3.5 h-3.5" /> : null}
-            {isSelected ? '선택됨' : '이 스타일 선택'}
+            {isSelected ? t.designPreview.selected : t.designPreview.selectThis}
           </button>
         </div>
       </div>

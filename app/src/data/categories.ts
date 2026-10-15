@@ -2768,7 +2768,7 @@ export const categories: Category[] = [
   ]},
   { id: 120, name: 'Design NotebookLM', nameEn: 'Design NotebookLM', icon: '🎨', prompts: [
     'Design NotebookLM 슬라이드 프롬프트 생성기 소개',
-    '108개 카테고리 기반 프롬프트 자동 생성 데모',
+    '133개 카테고리 기반 프롬프트 자동 생성 데모',
     '30가지 디자인 스타일 선택 및 적용 가이드',
     '3단계 프롬프트 생성 워크플로우 기술 발표',
     '배치 슬라이드 렌더링 시스템 아키텍처 소개',

@@ -1,6 +1,18 @@
 export const ko = {
   // Header
   appTitle: 'NotebookLM 슬라이드 프롬프트 생성기',
+  langToggleTitle: 'Switch to English',
+
+  // API 상태 (Bell)
+  apiStatus: {
+    title: 'API 서버 상태',
+    checking: '확인 중...',
+    online: '백엔드 연결됨',
+    offline: '백엔드 오프라인',
+    categories: '카테고리',
+    designStyles: '디자인 스타일',
+    totalPrompts: '총 프롬프트',
+  },
 
   // Sidebar
   nav: {
@@ -20,6 +32,9 @@ export const ko = {
     customPromptPlaceholder: '추가로 반영하고 싶은 프롬프트를 입력하세요...',
     cancel: '취소',
     save: '저장',
+    testConnection: '연결 테스트',
+    testing: '테스트 중...',
+    testOk: '연결 성공',
   },
 
   // Category Selector
@@ -51,6 +66,15 @@ export const ko = {
   // Design Style Selector
   designStyle: {
     title: '디자인 구조 선택 (30가지)',
+  },
+
+  // Design Style Preview Modal
+  designPreview: {
+    navHint: '← → 좌우 화살표로 타이틀/콘텐츠 슬라이드를 확인하세요',
+    descLabel: '디자인 설명',
+    close: '닫기',
+    selected: '선택됨',
+    selectThis: '이 스타일 선택',
   },
 
   // Design Ref Panel
@@ -100,18 +124,40 @@ export const ko = {
     title: '슬라이드 맞춤설정 프롬프트',
     pagesSuffix: '페이지',
     reconfigure: '다시 설정',
+    generating: '백엔드에서 프롬프트 생성 중...',
+    srcBackend: '백엔드 생성',
+    srcLocal: '로컬 생성(폴백)',
+    fallbackWarn: '백엔드 API에 연결하지 못해 로컬 생성으로 대체했습니다. (백엔드 서버를 실행하면 동일 결과가 서버에서 생성됩니다)',
+    aiTitle: 'AI 직접 생성 (Claude / Gemini)',
+    aiDesc: '설정에 등록한 API Key로 2단계 마스터 대본을 AI가 실제로 작성합니다.',
+    aiRun: 'AI로 생성',
     configSummary: '구성 요약',
     promptLabel: '프롬프트',
     audienceLabel: '대상 청중',
     objectiveLabel: '발표 목적',
     usageTitle: '사용 방법',
     usageSteps: [
-      '소스파일(대본 문서)을 NotebookLM의 소스로 업로드합니다.',
-      '1단계(디자인 시스템) → 2단계(마스터 대본) → 3단계(슬라이드 렌더링) 순서로 각각 별도 메시지/생성으로 실행합니다.',
-      '총 페이지가 20을 넘으면 3단계는 20페이지 단위 배치로 자동 분할됩니다. 각 배치는 NotebookLM Studio에서 별도 생성으로 실행해야 하며, 한 메시지에 합쳐 붙여넣으면 동일 내용이 반복 생성됩니다.',
-      '[Global Design System]의 URL은 Behance/Dribbble에서 선택한 디자인의 URL을 사용합니다.',
-      '하단의 "순차 복사" 버튼을 사용하면 클릭마다 다음 항목(1단계 → 2단계 → 3단계 배치1 → 배치2 …)이 클립보드에 복사됩니다.',
+      '권장: 아래 "통합 마스터 사양서"를 1회 복사하여 NotebookLM "+ 소스 추가 → 복사된 텍스트"에 붙여넣습니다. (기존 4회 복사 불필요)',
+      '발표 내용 소스(대본·자료 문서)를 같은 노트북에 업로드합니다.',
+      'Studio → 슬라이드 생성 → 맞춤설정에 [배치 1] 프롬프트를 붙여넣고 생성을 시작한 뒤, 기다리지 말고 곧바로 [배치 2]로 생성을 한 번 더 시작하면 20페이지 덱 2개가 동시에 생성됩니다.',
+      '완성된 배치 덱을 순서대로 이으면 표지부터 클로징까지 연속된 하나의 발표 자료가 됩니다.',
+      '아래 레거시(채팅 기반) 단계별 프롬프트는 NotebookLM 채팅창에서 단계별로 직접 실행하고 싶을 때만 사용하세요.',
     ],
+    unifiedTitle: '통합 마스터 사양서 — 1회 복사로 끝내기',
+    unifiedDesc: '디자인 시스템 + 마스터 대본 계약 + 배치 경계 규칙을 하나의 문서로 묶었습니다. NotebookLM 소스로 1회만 붙여넣으면 배치별 슬라이드가 연속된 내용으로 생성됩니다.',
+    unifiedCopy: '통합 사양서 복사 (1회)',
+    unifiedCopied: '복사 완료 — 소스로 붙여넣기',
+    unifiedSteps: [
+      '위 버튼으로 통합 사양서 복사 → NotebookLM "+ 소스 추가 → 복사된 텍스트"에 붙여넣기 (1회)',
+      '발표 내용 소스 업로드 → Studio → 슬라이드 생성 → 맞춤설정에 [배치 1] 프롬프트 붙여넣고 시작',
+      '기다리지 말고 곧바로 슬라이드 생성을 한 번 더 열어 [배치 2] 프롬프트로 시작 → 두 덱이 동시에 생성',
+      '배치 덱을 순서대로 이으면 하나의 연속된 발표 자료 완성',
+    ],
+    studioPromptsTitle: 'Studio 실행 프롬프트 (슬라이드 생성 맞춤설정 칸에 붙여넣기 — 통합 사양서 PART 5에도 포함)',
+    studioSingleLabel: '단일 생성',
+    unifiedShow: '통합 사양서 전체 보기',
+    unifiedHide: '통합 사양서 접기',
+    legacyTitle: '레거시 — 채팅 기반 단계별 프롬프트 (고급)',
     step1Title: '1단계: 슬라이드 영문 디자인 추출 프롬프트',
     step2Title: '2단계: 마스터 대본 추출 프롬프트',
     step3Title: '3단계: 슬라이드 렌더링 프롬프트',

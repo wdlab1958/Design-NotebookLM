@@ -1,24 +1,8 @@
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
-import { ko } from './ko'
-import { en } from './en'
+import { useState, useEffect, type ReactNode } from 'react'
+import { LanguageContext, translations, type Lang } from './lang'
 
-export type Lang = 'ko' | 'en'
-type Translations = typeof ko
-
-const translations: Record<Lang, Translations> = { ko, en }
-
-interface LanguageContextType {
-  lang: Lang
-  setLang: (lang: Lang) => void
-  t: Translations
-}
-
-const LanguageContext = createContext<LanguageContextType>({
-  lang: 'ko',
-  setLang: () => {},
-  t: ko,
-})
-
+// 이 파일은 컴포넌트(LanguageProvider)만 export 한다 (fast-refresh 친화).
+// 컨텍스트/훅/타입은 ./lang 에서 가져온다.
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
     return (localStorage.getItem('notebooklm_lang') as Lang) || 'ko'
@@ -33,8 +17,4 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
       {children}
     </LanguageContext.Provider>
   )
-}
-
-export function useLang() {
-  return useContext(LanguageContext)
 }

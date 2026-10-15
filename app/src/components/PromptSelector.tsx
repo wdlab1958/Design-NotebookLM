@@ -1,6 +1,6 @@
 import { FileText } from 'lucide-react'
 import type { Category } from '../data/categories'
-import { useLang } from '../i18n/LanguageContext'
+import { useLang } from '../i18n/lang'
 
 interface Props {
   category: Category | null

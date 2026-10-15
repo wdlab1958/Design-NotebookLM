@@ -1,0 +1,14 @@
+{
+  "name": "notebooklm-backend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "NotebookLM 슬라이드 프롬프트 생성기 백엔드 API (의존성 0, Node 22 type-stripping)",
+  "scripts": {
+    "start": "node index.mjs",
+    "dev": "node --watch index.mjs"
+  },
+  "engines": {
+    "node": ">=22.6.0"
+  }
+}

@@ -1,18 +1,20 @@
 import { LayoutDashboard, Palette, FileText, Wand2, BookOpen } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { useLang } from '../i18n/LanguageContext'
+import { useLang } from '../i18n/lang'
 
 export default function Sidebar() {
   const location = useLocation()
   const navigate = useNavigate()
   const { t } = useLang()
 
+  // Gap #13: 5개 항목이 2개 경로로만 매핑되어 "Design" 버튼이 죽어 있던 문제 해결.
+  // 의미가 명확한 항목만 남기고, NotebookLM 은 외부 링크로 처리.
   const navItems = [
-    { icon: LayoutDashboard, label: t.nav.home, path: '/' },
-    { icon: Palette, label: t.nav.design, path: '/' },
-    { icon: FileText, label: t.nav.prompt, path: '/customize' },
-    { icon: Wand2, label: t.nav.generate, path: '/customize' },
-    { icon: BookOpen, label: t.nav.notebookLM, path: '/customize' },
+    { icon: LayoutDashboard, label: t.nav.home, path: '/', external: false },
+    { icon: Palette, label: t.nav.design, path: '/', external: false },
+    { icon: FileText, label: t.nav.prompt, path: '/customize', external: false },
+    { icon: Wand2, label: t.nav.generate, path: '/customize', external: false },
+    { icon: BookOpen, label: t.nav.notebookLM, path: 'https://notebooklm.google.com/', external: true },
   ]
 
   return (
@@ -21,11 +23,16 @@ export default function Sidebar() {
         <BookOpen className="w-5 h-5 text-white" />
       </div>
       {navItems.map((item, i) => {
-        const isActive = location.pathname === item.path && (i === 0 ? location.pathname === '/' : i > 1)
+        const isActive = !item.external && location.pathname === item.path
         return (
           <button
             key={i}
-            onClick={() => navigate(item.path)}
+            onClick={() => {
+              if (item.external) window.open(item.path, '_blank', 'noopener,noreferrer')
+              else navigate(item.path)
+            }}
+            aria-current={isActive ? 'page' : undefined}
+            title={item.label}
             className={`w-12 h-12 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-colors ${
               isActive
                 ? 'bg-[#3b82f6]/20 text-[#3b82f6]'

@@ -1,5 +1,5 @@
 import { ExternalLink, Globe } from 'lucide-react'
-import { useLang } from '../i18n/LanguageContext'
+import { useLang } from '../i18n/lang'
 
 interface Props {
   designRefUrl: string

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Search, ChevronRight } from 'lucide-react'
 import { categories, type Category } from '../data/categories'
-import { useLang } from '../i18n/LanguageContext'
+import { useLang } from '../i18n/lang'
 
 interface Props {
   selectedCategory: number | null

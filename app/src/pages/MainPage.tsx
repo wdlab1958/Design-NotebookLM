@@ -8,7 +8,7 @@ import DesignRefPanel from '../components/DesignRefPanel'
 import PageConfig from '../components/PageConfig'
 import { categories, type Category } from '../data/categories'
 import { designStyles } from '../data/designStyles'
-import { useLang } from '../i18n/LanguageContext'
+import { useLang } from '../i18n/lang'
 
 export default function MainPage() {
   const navigate = useNavigate()
@@ -46,6 +46,8 @@ export default function MainPage() {
       totalPages,
     }
     localStorage.setItem('notebooklm_config', JSON.stringify(config))
+    // 실제 NotebookLM 을 새 탭으로 연다 (Gap #4: 버튼 라벨 "NotebookLM 열기" 와 동작 일치).
+    window.open('https://notebooklm.google.com/', '_blank', 'noopener,noreferrer')
     navigate('/customize')
   }
 
