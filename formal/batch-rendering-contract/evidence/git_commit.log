@@ -1,0 +1,72 @@
+# git log -1 --stat of the formal verification commit (2026-10-29)
+commit 550774fdde8911f93eb9effa922df725eb7c6ffe
+Author: wdlab1958 <wdlab1958@gmail.com>
+Date: Thu Oct 29 14:53:27 2026 +0900
+
+formal: WDLAB proof-skills 검증 (batch-rendering-contract) — BOUNDED-PASS 2026-10-29
+
+WDLAB-STD-VERIFY-001 v1.0, W1 Bug hunt, L2 (TLA+/TLC tla2tools v1.8.0 = TLC 2026.10.28).
+
+Concern: 20장 단위 배치 분할 계획(batchPlan)과 배치별 계약 문구(범위·정확 장수·표지/클로징)가
+NotebookLM Studio 배치의 독립·병행 렌더링 + 순서 병합 하에서 "슬라이드 1..n 정확히 1회,
+표지 1장, 클로징 1장"을 보장하는지 모델 검사.
+
+- formal/batch-rendering-contract/tla: Spec.tla (toggle ScopeContract/CountContract/RoleContract),
+  Properties.tla (P1 P2 P3 L1 동결 + C1 C2 + sanity), 7 cfg
+  MC PASS (n 1..5, B=2, 25 states, depth 5) / MC_wide PASS (n 1..100, B=20, 1,340 states, depth 7)
+  MC_bug FAIL P3 / MC_bug_scope FAIL / MC_bug_count FAIL / MC_bug_role PASS(예상) / MC_sanity FAIL
+- F1: 과거 버그 "80장 = 동일 20장 ×4"(fbd3053 이전) 를 모델과 git 85f2104 실코드(repro/legacy_85f2104.mjs)
+  양쪽에서 P3_ExactDeck 위반으로 재현 → 현재 코드 FIXED 확증. 소스 수정 없음.
+- 회귀 가드 tests/batch_contract_test.mjs (node --test, 서버 불필요, n=1..1000) + npm run test:formal
+- formal/run_all.sh 3-config 게이트(기대값 단언), findings.json(wdlab 블록), CANDIDATES/SCOPE/CORRESPONDENCE,
+  evidence 로그 14종, 보고서 formal/reports/2026-10-29-batch-rendering-contract.md
+- F2 .ts/.mjs 쌍 중복(low, 기록만), F3 순차 복사 헬퍼(low, suspected, 기록만)
+- README: 형식 검증 섹션(Oct.29, 2026), 변경 이력
+
+Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>
+
+
+ README.md                                          |  14 +-
+ formal/CANDIDATES.md                               |  20 ++
+ formal/README.md                                   |  39 ++++
+ formal/batch-rendering-contract/CORRESPONDENCE.md  |  51 +++++
+ formal/batch-rendering-contract/SCOPE.md           |  56 ++++++
+ .../batch-rendering-contract/evidence/mutation.log |  39 ++++
+ .../batch-rendering-contract/evidence/run_all.log  |  13 ++
+ .../evidence/static_checks.log                     |  13 ++
+ .../evidence/test_after.log                        |  43 ++++
+ .../evidence/test_before.log                       |  17 ++
+ .../batch-rendering-contract/evidence/tlc_bug.log  |  53 +++++
+ .../evidence/tlc_coverage.log                      | 216 +++++++++++++++++++++
+ .../evidence/tlc_fixed.log                         |  41 ++++
+ .../evidence/tlc_mutation_count.log                |  53 +++++
+ .../evidence/tlc_mutation_role.log                 |  37 ++++
+ .../evidence/tlc_mutation_scope.log                |  69 +++++++
+ .../evidence/tlc_sanity.log                        |  89 +++++++++
+ .../evidence/tlc_summary.log                       |  66 +++++++
+ .../batch-rendering-contract/evidence/tlc_wide.log |  45 +++++
+ .../batch-rendering-contract/evidence/trace_bug.md |   5 +
+ .../evidence/trace_mutation_count.md               |   5 +
+ .../evidence/trace_mutation_scope.md               |   6 +
+ .../evidence/trace_sanity.md                       |   7 +
+ .../repro/contract_checker.mjs                     | 102 ++++++++++
+ .../repro/legacy_85f2104.mjs                       |  34 ++++
+ formal/batch-rendering-contract/tla/MC.cfg         |  18 ++
+ formal/batch-rendering-contract/tla/MC_bug.cfg     |  16 ++
+ .../batch-rendering-contract/tla/MC_bug_count.cfg  |  16 ++
+ .../batch-rendering-contract/tla/MC_bug_role.cfg   |  18 ++
+ .../batch-rendering-contract/tla/MC_bug_scope.cfg  |  17 ++
+ formal/batch-rendering-contract/tla/MC_sanity.cfg  |  10 +
+ formal/batch-rendering-contract/tla/MC_wide.cfg    |  18 ++
+ formal/batch-rendering-contract/tla/Properties.tla |  51 +++++
+ formal/batch-rendering-contract/tla/Spec.tla       | 144 ++++++++++++++
+ formal/findings.json                               | 141 ++++++++++++++
+ .../reports/2026-10-29-batch-rendering-contract.md | 196 +++++++++++++++++++
+ formal/run_all.sh                                  |  50 +++++
+ tests/batch_contract_test.mjs                      |  92 +++++++++
+ tests/package.json                                 |   3 +-
+ 39 files changed, 1921 insertions(+), 2 deletions(-)
+
+# git push origin HEAD (rc=0)
+To https://github.com/wdlab1958/Design-NotebookLM.git
+   eb95e94..550774f  HEAD -> main
