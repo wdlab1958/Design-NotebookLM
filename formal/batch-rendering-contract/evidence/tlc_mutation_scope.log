@@ -1,0 +1,69 @@
+TLC2 Version 2026.10.28.014557 (rev: 56d37a9)
+Running breadth-first search Model-Checking with fp 20 and seed -2888340221669889169 with 4 workers on 28 cores with 27305MB heap and 64MB offheap memory [pid: 857061] (Linux 6.14.0-37-generic amd64, Ubuntu 21.0.12.1 64bit, MSBDiskFPSet, DiskStateQueue).
+Parsing file /home/ubuntu-02/ai_project/02_Design_NotebookLM/formal/batch-rendering-contract/tla/Properties.tla
+Parsing file /home/ubuntu-02/ai_project/02_Design_NotebookLM/formal/batch-rendering-contract/tla/Spec.tla
+Parsing file /tmp/tlc-6165329114788415758/_TLCTrace.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/_TLCTrace.tla)
+Parsing file /tmp/tlc-6165329114788415758/Naturals.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/Naturals.tla)
+Parsing file /tmp/tlc-6165329114788415758/Sequences.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/Sequences.tla)
+Parsing file /tmp/tlc-6165329114788415758/FiniteSets.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/FiniteSets.tla)
+Parsing file /tmp/tlc-6165329114788415758/TLC.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/TLC.tla)
+Parsing file /tmp/tlc-6165329114788415758/TLCExt.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/TLCExt.tla)
+Parsing file /tmp/tlc-6165329114788415758/Integers.tla (jar:file:/home/ubuntu-02/.cache/proof-skills/tla2tools.jar!/tla2sany/StandardModules/Integers.tla)
+Semantic processing of module Naturals
+Semantic processing of module Sequences
+Semantic processing of module FiniteSets
+Semantic processing of module Spec
+Semantic processing of module TLC
+Semantic processing of module Integers
+Semantic processing of module TLCExt
+Semantic processing of module _TLCTrace
+Semantic processing of module Properties
+Linting of module Spec
+Linting of module TLCExt
+Linting of module _TLCTrace
+Linting of module Properties
+Starting... (2026-10-29 14:45:19)
+Computing initial states...
+Computed 2 initial states...
+Computed 4 initial states...
+Finished computing initial states: 5 distinct states generated at 2026-10-29 14:45:19.
+Error: Invariant P3_ExactDeck is violated.
+Error: The behavior up to this point is:
+State 1: <Initial predicate>
+/\ deck = << [nums |-> <<>>, xc |-> FALSE, xz |-> FALSE],
+   [nums |-> <<>>, xc |-> FALSE, xz |-> FALSE] >>
+/\ merged = <<>>
+/\ n = 3
+/\ plan = << [count |-> 2, start |-> 1, end |-> 2, idx |-> 1],
+   [count |-> 1, start |-> 3, end |-> 3, idx |-> 2] >>
+
+State 2: <Render(1) line 106, col 3 to line 110, col 34 of module Spec>
+/\ deck = << [nums |-> <<1, 2>>, xc |-> FALSE, xz |-> FALSE],
+   [nums |-> <<>>, xc |-> FALSE, xz |-> FALSE] >>
+/\ merged = <<>>
+/\ n = 3
+/\ plan = << [count |-> 2, start |-> 1, end |-> 2, idx |-> 1],
+   [count |-> 1, start |-> 3, end |-> 3, idx |-> 2] >>
+
+State 3: <Render(2) line 106, col 3 to line 110, col 34 of module Spec>
+/\ deck = << [nums |-> <<1, 2>>, xc |-> FALSE, xz |-> FALSE],
+   [nums |-> <<2>>, xc |-> FALSE, xz |-> FALSE] >>
+/\ merged = <<>>
+/\ n = 3
+/\ plan = << [count |-> 2, start |-> 1, end |-> 2, idx |-> 1],
+   [count |-> 1, start |-> 3, end |-> 3, idx |-> 2] >>
+
+State 4: <Merge line 125, col 3 to line 128, col 32 of module Spec>
+/\ deck = << [nums |-> <<1, 2>>, xc |-> FALSE, xz |-> FALSE],
+   [nums |-> <<2>>, xc |-> FALSE, xz |-> FALSE] >>
+/\ merged = << [extra |-> "none", num |-> 1],
+   [extra |-> "none", num |-> 2],
+   [extra |-> "none", num |-> 2] >>
+/\ n = 3
+/\ plan = << [count |-> 2, start |-> 1, end |-> 2, idx |-> 1],
+   [count |-> 1, start |-> 3, end |-> 3, idx |-> 2] >>
+
+95 states generated, 82 distinct states found, 50 states left on queue.
+The depth of the complete state graph search is 4.
+Finished in 00s at (2026-10-29 14:45:19)
+Trace exploration spec path: ./Properties_TTrace_1793252719.tla

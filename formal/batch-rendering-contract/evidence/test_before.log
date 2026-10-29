@@ -1,0 +1,17 @@
+# F1 historic reproduction — pre-fix code (git 85f2104, parent of fbd3053), run 2026-10-29
+# cmd: node formal/batch-rendering-contract/repro/legacy_85f2104.mjs
+[FAIL] n=21 batches=2 flags(batch1)={"scope":false,"exactCount":false,"coverForbidden":false,"closingForbidden":true}
+       P1_SingleCover=false covers@[1,2,22]  P2_SingleClosing=false closings@[]
+       P3_ExactDeck=false merged=41 slides, first 24 nums=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3]
+[FAIL] n=40 batches=2 flags(batch1)={"scope":false,"exactCount":false,"coverForbidden":false,"closingForbidden":true}
+       P1_SingleCover=false covers@[1,2,22]  P2_SingleClosing=false closings@[]
+       P3_ExactDeck=false merged=41 slides, first 24 nums=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3]
+[FAIL] n=45 batches=3 flags(batch1)={"scope":false,"exactCount":false,"coverForbidden":false,"closingForbidden":true}
+       P1_SingleCover=false covers@[1,2,22,42]  P2_SingleClosing=false closings@[]
+       P3_ExactDeck=false merged=61 slides, first 24 nums=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3]
+[FAIL] n=80 batches=4 flags(batch1)={"scope":false,"exactCount":false,"coverForbidden":false,"closingForbidden":true}
+       P1_SingleCover=false covers@[1,2,22,42,62]  P2_SingleClosing=false closings@[]
+       P3_ExactDeck=false merged=81 slides, first 24 nums=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,1,2,3]
+
+4 configuration(s) violate the frozen properties on 85f2104 (pre-fix code) — F1 reproduced
+EXIT=1

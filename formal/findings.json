@@ -1,0 +1,141 @@
+{
+  "concern": "batch-rendering-contract",
+  "workflow": "W1",
+  "generated_at": "2026-10-29T14:50:00+09:00",
+  "repo_commit": "eb95e949f9d0782ee2bfcfb0db10bd7848614e3b",
+  "summary": "BOUNDED-PASS (L2): with the current batch contract (scope + exact count + cover/closing rules) every deck n in 1..5 (BatchSize=2, 25 states, depth 5) and n in 1..100 with the real BatchSize=20 (1,340 states, depth 7, up to 5 batches) merges to exactly slides 1..n with one cover and one closing; the pre-fix prompt (85f2104) violates P3_ExactDeck in the model and on real code.",
+  "scope": {
+    "modeled": [
+      "batchPlan loop (app/src/lib/unified.ts:39-52, server/lib/generate.mjs:77-87, PageConfig.tsx:12-20, tests/lib.mjs:37-46)",
+      "batchCount closed form (server/lib/generate.mjs:133)",
+      "per-batch contract text: scope (unified.ts:94,119; generate.mjs:99), exact count (unified.ts:94,119; generate.mjs:100), cover/closing placement (unified.ts:96-99,114-118; generate.mjs:102-110)",
+      "independent, concurrently finishing batch renderers that may do anything the contract text does not forbid",
+      "user concatenation of batch decks in batch order (unified.ts:103,175)"
+    ],
+    "abstracted": [
+      "slide = (global number, extra in {none,cover,closing}); content and design consistency not modeled",
+      "renderer is a literal-compliance adversary; partial compliance of the LLM renderer is outside the model",
+      "an exact slide count (CountContract) also excludes extra unnumbered title/closing slides (A3) — hence RoleContract alone is redundant in the model",
+      "BatchSize reduced to 2 for the small-bound configs; real 20 in MC_wide"
+    ],
+    "out_of_scope": [
+      "step 1/2 prompt content, design system text, i18n",
+      "backend routing/validation (L0 static checks only: evidence/static_checks.log)",
+      "/api/llm/* calls, clipboard flow (candidates 2-3), real NotebookLM behaviour"
+    ],
+    "assumptions": [
+      "A1-A6 in formal/batch-rendering-contract/SCOPE.md"
+    ]
+  },
+  "properties": [
+    { "name": "P1_SingleCover", "kind": "invariant", "statement": "merged # <<>> => Covers = {1}", "meaning": "exactly one cover/title slide and it is slide 1", "source": "app/src/lib/unified.ts:86,96-97; commit fbd3053; README.md", "frozen": true, "result": "holds", "tool": "TLC 2026.10.28 (tla2tools v1.8.0)", "bounds": "MinN..MaxN=1..5, BatchSize=2 (MC) and 1..100, BatchSize=20 (MC_wide)", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "P2_SingleClosing", "kind": "invariant", "statement": "merged # <<>> => Closings = {Len(merged)}", "meaning": "exactly one closing slide and it is the last slide n", "source": "app/src/lib/unified.ts:99; server/lib/generate.mjs:109; commit fbd3053", "frozen": true, "result": "holds", "tool": "TLC 2026.10.28", "bounds": "same as P1", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "P3_ExactDeck", "kind": "invariant", "statement": "merged # <<>> => Nums = [i \\in 1..n |-> i]", "meaning": "the concatenated deck is exactly global slides 1..n in order: no loss, duplication, reordering or extra slides", "source": "app/src/lib/unified.ts:102-103; README.md (fbd3053 regression); tests/e2e_test.mjs:58-66", "frozen": true, "result": "holds", "tool": "TLC 2026.10.28", "bounds": "same as P1", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "C1_BatchBound", "kind": "invariant", "statement": "\\A b \\in Batches : plan[b].count \\in 1..BatchSize", "meaning": "every batch has 1..20 slides", "source": "README.md; app/src/lib/unified.ts:45", "frozen": false, "result": "holds", "tool": "TLC 2026.10.28", "bounds": "same as P1", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "C2_PlanPartition", "kind": "invariant", "statement": "plan[1].start = 1 /\\ plan[NB].end = n /\\ contiguous /\\ NB = BatchCountFormula(n)", "meaning": "the plan partitions 1..n contiguously and its length equals the API's batchCount", "source": "server/lib/generate.mjs:133; tests/lib.mjs:37-46; tests/e2e_test.mjs:49-55", "frozen": false, "result": "holds", "tool": "TLC 2026.10.28", "bounds": "same as P1", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "L1_EventuallyMerged", "kind": "liveness", "statement": "<>(merged # <<>>)", "meaning": "every behaviour eventually yields the merged deck (WF on Next)", "source": "app/src/lib/unified.ts:175", "frozen": true, "result": "holds", "tool": "TLC 2026.10.28", "bounds": "same as P1", "evidence": "formal/batch-rendering-contract/evidence/tlc_fixed.log, tlc_wide.log" },
+    { "name": "Sanity_NeverMergedThreeBatches", "kind": "bounded-check", "statement": "~(merged # <<>> /\\ NB >= 3)", "meaning": "sanity check that MUST fail: a merged 3-batch deck is reachable", "source": "WDLAB §6.1", "frozen": false, "result": "violated", "tool": "TLC 2026.10.28", "bounds": "MinN..MaxN=1..5, BatchSize=2", "evidence": "formal/batch-rendering-contract/evidence/tlc_sanity.log" }
+  ],
+  "findings": [
+    {
+      "id": "F1",
+      "title": "배치 계약(범위·정확 장수) 부재 시 독립 렌더링 배치가 다른 배치의 슬라이드를 재생성/누락 — '80장 = 동일 20장 ×4' (fbd3053 에서 수정, 현재 코드 BOUNDED-PASS, 회귀 가드 추가)",
+      "severity": "high",
+      "status": "fixed",
+      "property": "P3_ExactDeck",
+      "story": "n=3, BatchSize=2 → batches [1-2],[3]. Batch 1 renders slides 1,2. Batch 2's prompt does not restrict it to global slide 3 (ScopeContract off, as in the pre-fix target_data \"Source Script Slides s to e\"), so it re-renders slide 2. The user concatenates: <<1,2,2>> — slide 3 lost, slide 2 duplicated. With the legacy prompt (all toggles off) even a single batch may render fewer slides than n (length: \"dynamic\"). On the real pre-fix code (85f2104) the checker reproduces the historic symptom: n=80 → 81 slides = extra title + 4 x slides 1..20, covers at positions 1,2,22,42,62, no closing.",
+      "trace": [
+        { "step": 1, "actor": "Init", "action": "n=3, plan=<<[1..2],[3]>>", "code": "app/src/lib/unified.ts:39-52 batchPlan", "changed": { "n": "3", "plan": "<<[idx1 1-2],[idx2 3-3]>>", "deck": "<<none,none>>" } },
+        { "step": 2, "actor": "Studio batch 1", "action": "Render(1) → nums <<1,2>>", "code": "app/src/lib/unified.ts:107-120 studioPrompt", "changed": { "deck[1]": "<<1,2>>" } },
+        { "step": 3, "actor": "Studio batch 2", "action": "Render(2) → nums <<2>> (scope not pinned: picks a slide of batch 1)", "code": "app/src/lib/unified.ts:94,119 / server/lib/generate.mjs:99 (ScopeContract OFF)", "changed": { "deck[2]": "<<2>>" } },
+        { "step": 4, "actor": "User", "action": "Merge → <<1,2,2>>", "code": "app/src/lib/unified.ts:103,175", "changed": { "merged": "<<1,2,2>>" }, "violation": true }
+      ],
+      "reproduction": {
+        "test": "formal/batch-rendering-contract/repro/legacy_85f2104.mjs (pre-fix generateStep3 from git 85f2104) ; tests/batch_contract_test.mjs (current code, node --test)",
+        "result_before_fix": "fails",
+        "result_after_fix": "passes"
+      },
+      "fix": {
+        "summary": "No source change in this cycle: the fix already exists in commit fbd3053 (2026-05-03) and in unified.ts PART 4 (scope + EXACTLY count + cover/closing rules). This cycle adds the model, the executable contract checker and the regression guard tests/batch_contract_test.mjs (npm run test:formal).",
+        "diff": "none (evidence/patches/ is empty by design)",
+        "model_recheck": "passes",
+        "mutation_check": "fails-as-expected"
+      },
+      "evidence": [
+        "formal/batch-rendering-contract/evidence/tlc_fixed.log",
+        "formal/batch-rendering-contract/evidence/tlc_wide.log",
+        "formal/batch-rendering-contract/evidence/tlc_bug.log",
+        "formal/batch-rendering-contract/evidence/trace_bug.md",
+        "formal/batch-rendering-contract/evidence/tlc_mutation_scope.log",
+        "formal/batch-rendering-contract/evidence/trace_mutation_scope.md",
+        "formal/batch-rendering-contract/evidence/tlc_mutation_count.log",
+        "formal/batch-rendering-contract/evidence/tlc_mutation_role.log",
+        "formal/batch-rendering-contract/evidence/mutation.log",
+        "formal/batch-rendering-contract/evidence/tlc_sanity.log",
+        "formal/batch-rendering-contract/evidence/tlc_coverage.log",
+        "formal/batch-rendering-contract/evidence/test_before.log",
+        "formal/batch-rendering-contract/evidence/test_after.log",
+        "formal/batch-rendering-contract/evidence/run_all.log"
+      ]
+    },
+    {
+      "id": "F2",
+      "title": "데이터/생성기 모듈의 .ts/.mjs 쌍 중복 (categories, designStyles, unified) — README 는 '단일 출처·중복 없음' 이라 기술; 오늘 기준 드리프트 0 이지만 구조적 위험",
+      "severity": "low",
+      "status": "confirmed",
+      "property": "code-level: ts/mjs twins must stay identical (not frozen)",
+      "story": "server/index.mjs:13-14 and server/lib/generate.mjs:10 import the .mjs twins while the frontend imports the .ts files. The batch loop additionally exists in 4 copies (unified.ts, generate.mjs, PageConfig.tsx, tests/lib.mjs). A differential probe over n=1..1000 and all three data modules found 0 drift today (evidence/static_checks.log); tests/batch_contract_test.mjs now guards unified.ts vs unified.mjs.",
+      "reproduction": { "test": "tests/batch_contract_test.mjs::unified.ts twin drift guard", "result_before_fix": "passes", "result_after_fix": "not-run" },
+      "fix": { "summary": "Not changed (design decision needs HITL): either import the .ts files from Node 22 type-stripping as the README claims, or generate the .mjs twins in the build and add them to a drift CI job (W5/W6).", "model_recheck": "not-run", "mutation_check": "not-run" },
+      "evidence": [ "formal/batch-rendering-contract/evidence/static_checks.log", "formal/batch-rendering-contract/evidence/test_after.log" ]
+    },
+    {
+      "id": "F3",
+      "title": "순차 복사 헬퍼: 복사 실패를 무시하고 진행도 전진 (execCommand 반환값 미확인, await 후 stale seqIndex 로 비함수형 setState)",
+      "severity": "low",
+      "status": "suspected",
+      "property": "UI-level (not frozen): 'copied N/Total' implies steps 1..N were delivered to the clipboard exactly once in order",
+      "story": "app/src/pages/CustomizePage.tsx:136-154 handleCopy marks success even when document.execCommand('copy') returns false; :435-443 advances seqIndex with the closure value after an await, so two clicks before the first resolves copy the same step twice (no skip, label stays consistent). A deterministic reproduction needs a React test runner (none installed) — recorded as SUSPECTED, not fixed.",
+      "reproduction": { "test": "not written (no React/jsdom test runner in the repo)", "result_before_fix": "not-reproduced", "result_after_fix": "not-run" },
+      "evidence": []
+    }
+  ],
+  "trust_base": {
+    "tla": {
+      "tool_version": "TLC 2026.10.28 (tla2tools v1.8.0), OpenJDK 21.0.12.1",
+      "states_generated": 2880,
+      "distinct_states": 1340,
+      "depth": 7,
+      "sanity_checks": [
+        "MC_sanity.cfg: Sanity_NeverMergedThreeBatches violated (exit 12) — 3-batch merge reachable",
+        "MC_bug.cfg: all toggles off → P3_ExactDeck violated (exit 12, 372 states, depth 3)",
+        "MC_bug_scope.cfg: ScopeContract off → P3_ExactDeck violated (exit 12, 90 distinct states, depth 4)",
+        "MC_bug_count.cfg: CountContract off → P3_ExactDeck violated (exit 12, 57 distinct states, depth 4)",
+        "MC_bug_role.cfg: RoleContract off → passes (expected; redundant under strict compliance, SCOPE.md A3)",
+        "-coverage 1: Init 5, Render 15 distinct/22, Merge 5/5, Terminated 0/5 (stutter) — no never-enabled action"
+      ]
+    }
+  },
+  "rerun": [
+    "cd /home/ubuntu-02/ai_project/02_Design_NotebookLM && ./formal/run_all.sh",
+    "cd formal/batch-rendering-contract/tla && java -cp ~/.cache/proof-skills/tla2tools.jar tlc2.TLC -workers 4 -config MC.cfg Properties.tla",
+    "cd formal/batch-rendering-contract/tla && java -cp ~/.cache/proof-skills/tla2tools.jar tlc2.TLC -workers 4 -config MC_bug.cfg Properties.tla   # expect exit 12",
+    "cd formal/batch-rendering-contract/tla && java -cp ~/.cache/proof-skills/tla2tools.jar tlc2.TLC -workers 4 -config MC_sanity.cfg Properties.tla   # expect exit 12",
+    "cd tests && npm run test:formal",
+    "node formal/batch-rendering-contract/repro/legacy_85f2104.mjs   # expect exit 1 (pre-fix code)"
+  ],
+  "next_steps": [
+    "W5: add ./formal/run_all.sh and `npm run test:formal` to CI (fail-closed on any of the 7 TLC expectations)",
+    "W6: drift check on unified.ts/unified.mjs/generate.mjs/PageConfig.tsx/tests/lib.mjs (F2); decide single-source strategy (HITL)",
+    "W4: the model shows RoleContract is redundant under strict compliance — keep it (LLM renderer), but the 4 copies of the batch loop can be collapsed into unified.batchPlan",
+    "W7: promote P3/C2 to Lean 4 for all n (Plan(n) is a contiguous partition and Len = ceil(n/B)) once Lean is installed",
+    "F3: add a React test runner and a deterministic clipboard fake before deciding on a fix"
+  ],
+  "wdlab": {
+    "project": "02_Design_NotebookLM",
+    "level_achieved": "L2",
+    "hitl_approvals": [ "G2: pending Brian review (2026-10-29)", "G7: n/a — no source change; F2 single-source decision pending Brian" ],
+    "risk_domain": "productivity-tooling / prompt-generation (non-safety-critical)",
+    "one_cycle_stage": "dev"
+  }
+}

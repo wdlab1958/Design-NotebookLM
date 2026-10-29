@@ -1,0 +1,13 @@
+# L0 static checks, 2026-10-29
+## node v22.23.4
+## tsc -p app/tsconfig.app.json --noEmit
+exit=0
+## eslint app/
+exit=0
+## differential probe: unified.ts vs unified.mjs, categories.ts vs .mjs, designStyles.ts vs .mjs, generateAll counts (n=1..1000)
+categories ts/mjs equal: true 133 133
+designStyles ts/mjs equal: true 30 30
+ids unique true a3>=109: 25 prompts 1330 all10 true
+drift count 0
+## SANY parse of formal/batch-rendering-contract/tla/Properties.tla
+RESULT: SANY ok

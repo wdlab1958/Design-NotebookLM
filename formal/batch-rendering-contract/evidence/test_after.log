@@ -1,0 +1,43 @@
+# regression guard on current code (HEAD eb95e94 + formal additions), run 2026-10-29
+# cmd: cd tests && node --test batch_contract_test.mjs   (FORMAL_MAX_N=1000)
+TAP version 13
+# Subtest: C1/C2: batchPlan(n) is a contiguous partition of 1..n in chunks of 20, length = ceil(n/20) = batchCount
+ok 1 - C1/C2: batchPlan(n) is a contiguous partition of 1..n in chunks of 20, length = ceil(n/20) = batchCount
+  ---
+  duration_ms: 48.471904
+  type: 'test'
+  ...
+# Subtest: P1/P2/P3 (unified Studio prompts): independent batches obeying only the prompt text merge into exactly slides 1..n
+ok 2 - P1/P2/P3 (unified Studio prompts): independent batches obeying only the prompt text merge into exactly slides 1..n
+  ---
+  duration_ms: 117.855551
+  type: 'test'
+  ...
+# Subtest: P1/P2/P3 (legacy chat flow, generateStep3Batches): same contract holds for the step-3 batch prompts
+ok 3 - P1/P2/P3 (legacy chat flow, generateStep3Batches): same contract holds for the step-3 batch prompts
+  ---
+  duration_ms: 192.731825
+  type: 'test'
+  ...
+# Subtest: contract flags are explicit in every multi-batch prompt (what the model calls Scope/Count/Role contracts)
+ok 4 - contract flags are explicit in every multi-batch prompt (what the model calls Scope/Count/Role contracts)
+  ---
+  duration_ms: 0.800383
+  type: 'test'
+  ...
+# Subtest: unified.ts (type-stripped) and unified.mjs twin stay identical (drift guard, F2)
+ok 5 - unified.ts (type-stripped) and unified.mjs twin stay identical (drift guard, F2)
+  ---
+  duration_ms: 28.017593
+  type: 'test'
+  ...
+1..5
+# tests 5
+# suites 0
+# pass 5
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 426.392088
+EXIT=0

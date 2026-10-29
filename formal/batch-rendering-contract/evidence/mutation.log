@@ -1,0 +1,39 @@
+# mutation check (G7, WDLAB §6.1): fix toggles reverted in the model — frozen property must fail again
+# RoleContract-only mutation is EXPECTED to pass (redundant under a strictly compliant renderer; see SCOPE.md A3)
+
+== MC_bug
+    ScopeContract = FALSE
+    CountContract = FALSE
+    RoleContract = FALSE
+Finished computing initial states: 5 distinct states generated at 2026-10-29 14:45:19.
+Error: Invariant P3_ExactDeck is violated.
+356 states generated, 356 distinct states found, 345 states left on queue.
+The depth of the complete state graph search is 3.
+
+== MC_bug_scope
+    ScopeContract = FALSE
+    CountContract = TRUE
+    RoleContract = TRUE
+Finished computing initial states: 5 distinct states generated at 2026-10-29 14:45:19.
+Error: Invariant P3_ExactDeck is violated.
+95 states generated, 82 distinct states found, 50 states left on queue.
+The depth of the complete state graph search is 4.
+
+== MC_bug_count
+    ScopeContract = TRUE
+    CountContract = FALSE
+    RoleContract = TRUE
+Finished computing initial states: 5 distinct states generated at 2026-10-29 14:45:20.
+Error: Invariant P3_ExactDeck is violated.
+81 states generated, 59 distinct states found, 27 states left on queue.
+The depth of the complete state graph search is 4.
+
+== MC_bug_role
+\* (RoleContract is defence-in-depth against partial compliance of an LLM renderer; see SCOPE.md).
+    ScopeContract = TRUE
+    CountContract = TRUE
+    RoleContract = FALSE
+Finished computing initial states: 5 distinct states generated at 2026-10-29 14:45:21.
+37 states generated, 25 distinct states found, 0 states left on queue.
+The depth of the complete state graph search is 5.
+

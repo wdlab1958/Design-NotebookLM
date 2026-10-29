@@ -2,6 +2,16 @@
 
 Google NotebookLM용 프레젠테이션 슬라이드 AI 프롬프트를 체계적으로 생성하는 웹 애플리케이션입니다.
 
+## 🔬 형식 검증 (Formal Verification) — Oct.29, 2026
+
+- **적용 표준**: WDLAB Unified Proof-Skills Standard v1.0 (WDLAB-STD-VERIFY-001), W1 Bug hunt, 도구 proof-skills 0.1.1 + TLA+/TLC (tla2tools v1.8.0, TLC 2026.10.28)
+- **Concern**: `batch-rendering-contract` — 20장 단위 배치 분할 계획(`batchPlan`)과 배치별 계약 문구(범위·정확 장수·표지/클로징)가, NotebookLM Studio 배치가 **독립·병행** 렌더링된 뒤 순서대로 병합될 때 "슬라이드 1..n 정확히 1회, 표지 1장(1번), 클로징 1장(n번)" 을 보장하는가 (`app/src/lib/unified.ts`, `server/lib/generate.mjs`)
+- **Verdict**: **`BOUNDED-PASS` · L2** · 경계 `n=1..5, BatchSize=2` (25 states, depth 5, liveness 포함) 및 `n=1..100, BatchSize=20` (1,340 states, depth 7, 최대 5배치) · 신뢰 기반 = TLC 2026.10.28 + 추상화 A1~A6 (렌더러는 계약 문구를 글자 그대로 준수하는 적대자로 가정 — LLM 의 부분 준수는 범위 밖). 이 세 가지 없이 "검증됨" 으로 읽지 말 것.
+- **Findings**: F1 과거 버그 "80장 = 동일 20장 ×4"(fbd3053 이전) 를 모델 `MC_bug.cfg` 와 과거 코드 85f2104 실행(`repro/legacy_85f2104.mjs`) 양쪽에서 `P3_ExactDeck` 위반으로 재현 → 현재 코드에서 `FIXED` 확증, 소스 수정 없음, 회귀 가드 `tests/batch_contract_test.mjs` 추가 · F2 `.ts/.mjs` 쌍 중복(드리프트 위험, low, 오늘 기준 차분 0) · F3 순차 복사 헬퍼 복사 실패 무시(low, suspected)
+- **실행**: `./formal/run_all.sh` (7개 TLC 기대값 + `node --test` + 과거 코드 재현, 1분 미만) 또는 `cd tests && npm run test:formal`
+- **산출물**: `formal/` (SCOPE · CORRESPONDENCE · `tla/Spec.tla` · `Properties.tla` · 7 cfg · evidence · `findings.json`), 보고서 `formal/reports/2026-10-29-batch-rendering-contract.md` (docx: `~/ai_project/Proof-Skills/02_Design_NotebookLM_ProofSkills_Report_2026-10-29.docx`)
+- HITL: G2 속성 동결 **pending Brian review**; F2 단일 출처 전략 결정 pending
+
 ## 주요 기능
 
 ### 카테고리 및 프롬프트
@@ -309,6 +319,7 @@ npm run build
 
 | 날짜 | 버전 | 주요 변경 사항 |
 |------|------|---------------|
+| 2026-10-29 | — | **형식 검증(WDLAB proof-skills)**: `formal/` 추가 — concern `batch-rendering-contract` TLA+/TLC 모델(3 toggle, 7 cfg), 과거 버그(fbd3053 이전) 모델·실코드 재현, 회귀 가드 `tests/batch_contract_test.mjs`(`npm run test:formal`), verdict BOUNDED-PASS L2; 소스 코드 무변경 |
 | 2026-10-15 | — | README 를 2026-10-15 기준 신규 구현(백엔드·통합 사양서·AI 직접 생성·테스트) 반영으로 갱신 |
 | 2026-06-06 ~ 2026-07-07 | v1.5 (워킹트리 변경, 미커밋) | Node 백엔드(`server/`, 7개 API) 신규 구축 및 Vite `/api` 프록시 연동, 통합 마스터 사양서 + Studio 실행 프롬프트(원클릭 흐름), AI 직접 생성(Claude/Gemini) 및 API Key 연결 테스트, customPrompt 실제 주입, 백엔드 미연결 시 로컬 폴백, Bell 백엔드 상태 팝오버, NotebookLM 실제 새 탭 오픈, 사이드바 죽은 버튼/활성 로직 수정, 미리보기 모달 i18n 하드코딩 제거, lint 0(lazy initializer, `i18n/lang.ts` 분리), A/B·E2E·Chaos 테스트 62건, Vite 8 → 5 하향 고정 |
 | 2026-05-03 | v1.4 | A3 AI/AX 프로젝트 4개 추가 (LOAN4U, PokerFace, WDLAB-AlphaForge, WDLAB-LLMOps → 총 133개), "전체 복사" → 순차 복사 헬퍼 교체, 3단계 렌더링을 배치별 자기완결 프롬프트 배열로 재작성(80장 동일 20장 반복 문제 해결) |
@@ -317,8 +328,9 @@ npm run build
 | - | v1.1 | 한국어/영어 언어 토글 지원 |
 | - | v1.0 | 초기 릴리스 — 108개 카테고리, 30개 디자인 스타일, 3단계 프롬프트 생성 |
 
-## 최근 업데이트 (2026-10-15 기준)
+## 최근 업데이트 (2026-10-29 기준)
 
+- **2026-10-29 (커밋)** — WDLAB proof-skills 형식 검증 `formal/` 추가(batch-rendering-contract, BOUNDED-PASS L2), `tests/batch_contract_test.mjs` 회귀 가드, `formal/run_all.sh` 3-config 게이트 — 소스 코드 변경 없음
 - **2026-05-03 (커밋)** — A3 AI/AX 프로젝트 4개 추가(총 133개), 순차 복사 헬퍼, 3단계 배치별 자기완결 프롬프트(80장 반복 버그 수정)
 - **2026-06-06 (워킹트리 변경, 미커밋)** — `server/` 백엔드 신규(7개 API, 의존성 0), `app/src/lib/api.ts` 프론트 연동, Vite 프록시, API Key 연결 테스트, AI 직접 생성, customPrompt 주입, Bell 상태 팝오버, NotebookLM 새 탭 오픈, i18n/접근성/lint 정리, `tests/` A/B·E2E·Chaos
 - **2026-06-12 (워킹트리 변경, 미커밋)** — 통합 마스터 사양서(`unified.ts`) + 배치별 Studio 실행 프롬프트 도입, 결과 페이지를 "통합 흐름(권장) / 레거시 단계별(고급)" 구조로 개편, 구버전 백엔드 호환(unified 누락 시 로컬 보강)

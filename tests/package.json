@@ -8,6 +8,7 @@
     "test": "node ab_test.mjs && node e2e_test.mjs && node chaos_test.mjs",
     "test:ab": "node ab_test.mjs",
     "test:e2e": "node e2e_test.mjs",
-    "test:chaos": "node chaos_test.mjs"
+    "test:chaos": "node chaos_test.mjs",
+    "test:formal": "node --test batch_contract_test.mjs"
   }
 }

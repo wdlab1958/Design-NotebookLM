@@ -1,0 +1,13 @@
+== TLC three-config gate (TLC_WORKERS=4) ==
+[PASS] MC exit=0 (expected 0) — fix ON, MinN..MaxN=1..5, BatchSize=2, +liveness: must PASS  (25 distinct states found)
+[PASS] MC_wide exit=0 (expected 0) — fix ON, real BatchSize=20, n=1..100: must PASS  (1,340 distinct states found)
+[PASS] MC_bug exit=12 (expected 12) — legacy prompt (all toggles OFF): must FAIL on P3_ExactDeck [Invariant P3_ExactDeck is violated] (330 distinct states found)
+[PASS] MC_bug_scope exit=12 (expected 12) — mutation: ScopeContract OFF: must FAIL (duplicated slides) [Invariant P3_ExactDeck is violated] (89 distinct states found)
+[PASS] MC_bug_count exit=12 (expected 12) — mutation: CountContract OFF: must FAIL (lost slides) [Invariant P3_ExactDeck is violated] (57 distinct states found)
+[PASS] MC_bug_role exit=0 (expected 0) — mutation: RoleContract OFF: expected PASS (redundant under strict compliance, SCOPE.md A3)  (25 distinct states found)
+[PASS] MC_sanity exit=12 (expected 12) — sanity: a merged 3-batch deck is reachable: must FAIL [Invariant Sanity_NeverMergedThreeBatches is violated] (25 distinct states found)
+== regression test on real code (node:test) ==
+[PASS] tests/batch_contract_test.mjs # pass 5
+== historic reproduction on pre-fix code (git 85f2104): must FAIL ==
+[PASS] legacy_85f2104.mjs exit=1 (properties violated on pre-fix code, as expected)
+ALL GATES PASSED
