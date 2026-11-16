@@ -1,0 +1,7 @@
+proof-skills = 0.1.1
+tla2tools    = v1.8.0 (TLC 2026.10.28)
+java         = OpenJDK 21.0.12.1
+lean         = not installed (L3/W7 deferred)
+node         = v22.23.4 (type-stripping import of .ts works unflagged; use --experimental-strip-types on older 22.x)
+model        = claude-fable-5-1
+standard     = WDLAB-STD-VERIFY-001 v1.0 (2026-10-29)
