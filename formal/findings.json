@@ -136,6 +136,12 @@
     "level_achieved": "L2",
     "hitl_approvals": [ "G2: pending Brian review (2026-10-29)", "G7: n/a — no source change; F2 single-source decision pending Brian" ],
     "risk_domain": "productivity-tooling / prompt-generation (non-safety-critical)",
-    "one_cycle_stage": "dev"
+    "one_cycle_stage": "dev",
+    "w5_ci": {
+      "workflow": ".github/workflows/formal.yml",
+      "registered": "2026-11-16",
+      "jobs": ["three-config-gate", "drift-check"],
+      "policy": "fail-closed"
+    }
   }
 }

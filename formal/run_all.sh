@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
 # Three-config gate (WDLAB-STD-VERIFY-001 §6.1) + regression test for concern batch-rendering-contract.
 # Usage: ./formal/run_all.sh            (from anywhere; needs java + tla2tools.jar, node >= 22)
-#   TLA2TOOLS=/path/tla2tools.jar  override jar (default ~/.cache/proof-skills/tla2tools.jar)
+#   TLA2TOOLS=/path/tla2tools.jar  override jar (default $PROOF_SKILLS_TOOLS/tla2tools.jar, PROOF_SKILLS_TOOLS default ~/.cache/proof-skills)
+#   FORMAL_SKIP_TESTS=1            skip the node:test regression test (CI runner without node 22)
 #   TLC_WORKERS=N                  TLC worker threads (default 4)
 #   SKIP_LEGACY=1                  skip the git-history reproduction (needs git + app/node_modules/esbuild)
 set -uo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 TLA="$HERE/batch-rendering-contract/tla"
-JAR="${TLA2TOOLS:-$HOME/.cache/proof-skills/tla2tools.jar}"
+TOOLS="${PROOF_SKILLS_TOOLS:-$HOME/.cache/proof-skills}"
+JAR="${TLA2TOOLS:-$TOOLS/tla2tools.jar}"
 [ -f "$JAR" ] || { echo "tla2tools.jar not found at $JAR (set TLA2TOOLS)"; exit 2; }
 WORKERS="${TLC_WORKERS:-4}"
 OUT="$(mktemp -d)"; trap 'rm -rf "$OUT"' EXIT
@@ -34,10 +36,14 @@ run_tlc MC_bug_count 12  "mutation: CountContract OFF: must FAIL (lost slides)"
 run_tlc MC_bug_role   0  "mutation: RoleContract OFF: expected PASS (redundant under strict compliance, SCOPE.md A3)"
 run_tlc MC_sanity    12  "sanity: a merged 3-batch deck is reachable: must FAIL"
 
+if [ "${FORMAL_SKIP_TESTS:-0}" = 1 ]; then
+  echo "== regression test on real code (node:test) == SKIPPED (FORMAL_SKIP_TESTS=1)"
+else
 echo "== regression test on real code (node:test) =="
 if ( cd "$ROOT/tests" && node --test batch_contract_test.mjs > "$OUT/test.log" 2>&1 ); then
   echo "[PASS] tests/batch_contract_test.mjs $(grep -E '^# pass' "$OUT/test.log" | tr -d '\n')"
 else echo "[FAIL] tests/batch_contract_test.mjs"; grep -E '^not ok|AssertionError|expected|actual' "$OUT/test.log" | head -20; fail=1; fi
+fi
 
 if [ "${SKIP_LEGACY:-0}" != 1 ] && [ -d "$ROOT/.git" ] && [ -d "$ROOT/app/node_modules/esbuild" ]; then
   echo "== historic reproduction on pre-fix code (git 85f2104): must FAIL =="

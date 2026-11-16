@@ -1,0 +1,16 @@
+	TLC - provides model checking and simulation of TLA+ specifications - Version 2026.11.15.002146
+tla2tools.jar sha256: 7e53aa636dac8a3c…  (note: the v1.8.0 GitHub release is a rolling pre-release; the CI log records the actual TLC build)
+TLA+ tools ready in /tmp/tmp.9fV87CRKBK
+== TLC three-config gate (TLC_WORKERS=2) ==
+[PASS] MC exit=0 (expected 0) — fix ON, MinN..MaxN=1..5, BatchSize=2, +liveness: must PASS  (25 distinct states found)
+[PASS] MC_wide exit=0 (expected 0) — fix ON, real BatchSize=20, n=1..100: must PASS  (1,340 distinct states found)
+[PASS] MC_bug exit=12 (expected 12) — legacy prompt (all toggles OFF): must FAIL on P3_ExactDeck [Invariant P3_ExactDeck is violated] (331 distinct states found)
+[PASS] MC_bug_scope exit=12 (expected 12) — mutation: ScopeContract OFF: must FAIL (duplicated slides) [Invariant P3_ExactDeck is violated] (99 distinct states found)
+[PASS] MC_bug_count exit=12 (expected 12) — mutation: CountContract OFF: must FAIL (lost slides) [Invariant P3_ExactDeck is violated] (29 distinct states found)
+[PASS] MC_bug_role exit=0 (expected 0) — mutation: RoleContract OFF: expected PASS (redundant under strict compliance, SCOPE.md A3)  (25 distinct states found)
+[PASS] MC_sanity exit=12 (expected 12) — sanity: a merged 3-batch deck is reachable: must FAIL [Invariant Sanity_NeverMergedThreeBatches is violated] (25 distinct states found)
+== regression test on real code (node:test) == SKIPPED (FORMAL_SKIP_TESTS=1)
+== historic reproduction on pre-fix code (git 85f2104): must FAIL ==
+[PASS] legacy_85f2104.mjs exit=1 (properties violated on pre-fix code, as expected)
+ALL GATES PASSED
+SIM_EXIT=0

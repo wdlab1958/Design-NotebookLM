@@ -37,3 +37,11 @@ node formal/batch-rendering-contract/repro/legacy_85f2104.mjs   # 과거 코드 
 - PASS 는 "명시 경계 안에서 반례 없음" 이다. 렌더러(NotebookLM)는 **문구를 글자 그대로 준수하는 적대자**로 추상화했으므로, LLM 의 부분 준수/오해로 생기는 결함은 이 검증 범위 밖이다.
 - `MC_bug_role.cfg` 가 통과하는 것은 모델상 정확 장수 지시가 추가 표지/클로징을 이미 배제하기 때문(A3). 역할 규칙은 LLM 렌더러에 대한 defence-in-depth 로 유지한다.
 - Lean 4 미설치 → L3(모든 n) 은 W7 후속 제안.
+
+## CI (W5/W6) — 2026-11-16
+
+- **워크플로**: `.github/workflows/formal.yml` (`name: formal-verification`), 정책 **fail-closed** (게이트 실패 = PR 차단). 트리거: `formal/**`, `app/src/**`, `server/**`, `tests/**` 변경 PR/push(main), nightly `17 18 * * *` UTC(03:17 KST), 수동(`workflow_dispatch`). 예산 30분(§13).
+- **job `three-config-gate`**: `formal/ci/setup_tla.sh`(tla2tools v1.8.0 고정, 캐시) → `formal/run_all.sh` — 7개 cfg 기대값(MC/MC_wide PASS, MC_bug/MC_bug_scope/MC_bug_count/MC_sanity FAIL=12, MC_bug_role PASS) + `tests/batch_contract_test.mjs`(node 22, `actions/setup-node`). 과거 코드 재현(`legacy_85f2104.mjs`)은 `app/node_modules/esbuild` 가 없는 러너에서 자동 생략. 실패 시 로그는 artifact `formal-evidence-<run_id>`.
+- **job `drift-check`**: `formal/tools/correspondence_check.py formal/ --root .` — `src:` 태그·CORRESPONDENCE.md 셀의 `파일:줄` 포인터가 저장소 루트 기준으로 모두 존재하고 줄 범위가 파일 길이 안인지 검사(0 broken 필수). PR 에서는 `--since origin/<base>` 로 대응 소스 파일 변경 목록도 출력 → **CORRESPONDENCE.md 대상 파일(`app/src/lib/unified.ts`, `server/lib/generate.mjs`, `PageConfig.tsx`, `tests/lib.mjs`) 변경 시 스펙 갱신 여부를 리뷰에서 확인한다** (PR 템플릿 없음).
+- **로컬 재실행**: `export PROOF_SKILLS_TOOLS=$(mktemp -d) && bash formal/ci/setup_tla.sh && TLC_WORKERS=2 bash formal/run_all.sh` (node 없는 환경은 `FORMAL_SKIP_TESTS=1`), 드리프트: `python3 formal/tools/correspondence_check.py formal/ --root .`. 증거: `batch-rendering-contract/evidence/ci_sim_run_all.log`, `ci_drift_check.log`.
+- `formal/tools/`, `formal/ci/` 스크립트 출처: proof-skills v0.1.1 formal-verify CI kit (MIT). `run_all.sh` 는 `PROOF_SKILLS_TOOLS` 를 존중하도록 2026-11-16 최소 수정(기대값 로직 무변경).

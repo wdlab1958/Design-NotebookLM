@@ -12,6 +12,10 @@ Google NotebookLM용 프레젠테이션 슬라이드 AI 프롬프트를 체계�
 - **산출물**: `formal/` (SCOPE · CORRESPONDENCE · `tla/Spec.tla` · `Properties.tla` · 7 cfg · evidence · `findings.json`), 보고서 `formal/reports/2026-10-29-batch-rendering-contract.md` (docx: `~/ai_project/Proof-Skills/02_Design_NotebookLM_ProofSkills_Report_2026-10-29.docx`)
 - HITL: G2 속성 동결 **pending Brian review**; F2 단일 출처 전략 결정 pending
 
+### W5 CI 회귀 가드 — Nov.16, 2026
+
+- `.github/workflows/formal.yml` (fail-closed): `formal/**`·`app/src/**`·`server/**`·`tests/**` 변경 PR/push 와 nightly 에 TLC 3-config 게이트(7 cfg 기대값 + `tests/batch_contract_test.mjs`) 와 W6 드리프트 검사(`formal/tools/correspondence_check.py`, 모델→코드 포인터 0 broken) 를 실행해 계약 문구 회귀·스펙 드리프트를 머지 전에 차단. 상세: `formal/README.md` "CI (W5/W6)".
+
 ## 주요 기능
 
 ### 카테고리 및 프롬프트
